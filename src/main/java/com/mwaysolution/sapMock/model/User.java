@@ -2,9 +2,7 @@ package com.mwaysolution.sapMock.model;
 
 
 import javax.persistence.*;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.TimeZone;
 
 @Entity
 @Table(name = "USER")
@@ -19,15 +17,13 @@ public class User {
     private String sapUsername;
     @Column(name = "EXCHANGE_USERNAME", nullable = false, length = 45)
     private String exchangeUsername;
-    @Column(name = "EXCHANGE_DOMAIN", nullable = false, length = 45)
+    @Column(name = "EXCHANGE_DOMAIN", nullable = false, length = 128)
     private String exchangeDomain;
-    @Column(name = "EMAIL", nullable = false, length = 128)
-    private String email;
     @Column(name = "TIMEZONE", nullable = false, length = 128)
     private String timeZone;
-    @Column(name = "CREATION_DATE", nullable = false, length = 128)
+    @Column(name = "CREATION_DATE", nullable = false)
     private ZonedDateTime creationDate;
-    @Column(name = "MODIFICATION_DATE", nullable = false, length = 128)
+    @Column(name = "MODIFICATION_DATE", nullable = false)
     private ZonedDateTime modificationDate;
 
     @Column(name = "FIRST_NAME", length = 45)
@@ -63,13 +59,6 @@ public class User {
         this.exchangeDomain = exchangeDomain;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getTimeZone() {
         return timeZone;

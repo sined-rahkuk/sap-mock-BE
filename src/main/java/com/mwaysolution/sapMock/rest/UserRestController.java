@@ -37,8 +37,8 @@ public class UserRestController {
     }
 
     @PutMapping("{id}")
-    public User updateContact(@PathVariable("id") User contactFromDB, @RequestBody User contact) {
-        BeanUtils.copyProperties(contact, contactFromDB, "id");
-        return userService.save(contactFromDB);
+    public User update(@PathVariable("id") Integer userID, @RequestBody User user) {
+        BeanUtils.copyProperties(user, userService.findById(userID), "id");
+        return userService.save(userService.findById(userID));
     }
 }

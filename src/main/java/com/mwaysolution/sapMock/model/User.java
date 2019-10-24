@@ -5,27 +5,28 @@ import javax.persistence.*;
 import java.util.TimeZone;
 
 @Entity
-@Table(name = "users")
+@Table(name = "USER")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID", unique = true, nullable = false)
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(name = "SAP_USERNAME", nullable = false, length = 45)
     private String sapUsername;
-    @Column(nullable = false)
+    @Column(name = "EXCHANGE_USERNAME", nullable = false, length = 45)
     private String exchangeUsername;
-    @Column(nullable = false)
+    @Column(name = "EXCHANGE_DOMAIN", nullable = false, length = 45)
     private String exchangeDomain;
-    @Column(nullable = false)
+    @Column(name = "EMAIL", nullable = false, length = 45)
     private String email;
-    @Column(nullable = false)
+    @Column(name = "TIMEZONE", nullable = false)
     private TimeZone timeZone;
 
-
+    @Column(name = "FIRST_NAME")
     private String firstName;
+    @Column(name = "LAST_NAME")
     private String lastName;
 
     public Integer getId() {

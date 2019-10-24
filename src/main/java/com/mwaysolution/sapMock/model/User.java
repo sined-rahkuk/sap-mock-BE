@@ -2,9 +2,7 @@ package com.mwaysolution.sapMock.model;
 
 
 import javax.persistence.*;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.TimeZone;
 
 @Entity
 @Table(name = "USER")

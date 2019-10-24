@@ -2,6 +2,8 @@ package com.mwaysolution.sapMock.model;
 
 
 import javax.persistence.*;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.TimeZone;
 
 @Entity
@@ -19,14 +21,18 @@ public class User {
     private String exchangeUsername;
     @Column(name = "EXCHANGE_DOMAIN", nullable = false, length = 45)
     private String exchangeDomain;
-    @Column(name = "EMAIL", nullable = false, length = 45)
+    @Column(name = "EMAIL", nullable = false, length = 128)
     private String email;
-    @Column(name = "TIMEZONE", nullable = false)
-    private TimeZone timeZone;
+    @Column(name = "TIMEZONE", nullable = false, length = 128)
+    private String timeZone;
+    @Column(name = "CREATION_DATE", nullable = false, length = 128)
+    private ZonedDateTime creationDate;
+    @Column(name = "MODIFICATION_DATE", nullable = false, length = 128)
+    private ZonedDateTime modificationDate;
 
-    @Column(name = "FIRST_NAME")
+    @Column(name = "FIRST_NAME", length = 45)
     private String firstName;
-    @Column(name = "LAST_NAME")
+    @Column(name = "LAST_NAME", length = 45)
     private String lastName;
 
     public Integer getId() {
@@ -65,11 +71,27 @@ public class User {
         this.email = email;
     }
 
-    public TimeZone getTimeZone() {
+    public String getTimeZone() {
         return timeZone;
     }
 
-    public void setTimeZone(TimeZone timeZone) {
+    public ZonedDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(ZonedDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public ZonedDateTime getModificationDate() {
+        return modificationDate;
+    }
+
+    public void setModificationDate(ZonedDateTime modificationDate) {
+        this.modificationDate = modificationDate;
+    }
+
+    public void setTimeZone(String timeZone) {
         this.timeZone = timeZone;
     }
 

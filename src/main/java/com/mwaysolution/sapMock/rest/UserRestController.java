@@ -33,7 +33,7 @@ public class UserRestController {
 
     @DeleteMapping("{id}")
     public void deleteById(@PathVariable ("id") Integer id){
-        userService.delete(userService.findById(id));
+        userService.deleteById(Long.valueOf(id));
     }
 
     @PutMapping("{id}")

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -54,7 +55,7 @@ public class UserRestController {
     @RequestMapping(value = "/users/{id}/register")
     public String register(@PathVariable("id") Integer id){
         HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         HttpEntity<User> entity = new HttpEntity<>(userService.findById(id),headers);
 
         return restTemplate.exchange(

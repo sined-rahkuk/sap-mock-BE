@@ -1,3 +1,6 @@
+--liquibase formatted sql
+--changeset liquibase:sqlFile-creation
+
 DROP TABLE IF EXISTS USER;
 
 CREATE TABLE USER (

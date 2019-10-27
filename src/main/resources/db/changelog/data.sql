@@ -1,3 +1,5 @@
+# --liquibase formatted sql
+
 INSERT INTO USER (SAP_USERNAME, EXCHANGE_USERNAME, EXCHANGE_DOMAIN, TIMEZONE, FIRST_NAME, LAST_NAME)
 VALUES ('sined99', 'denis@kukhar.com', 'kukhar.com', '+01:00', 'Denys', 'Kukhar'),
        ('lambda', 'lambda@mail.com', 'mail.com', '+01:00', 'Kristian', 'Lutak'),

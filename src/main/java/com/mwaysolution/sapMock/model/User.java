@@ -23,7 +23,7 @@ public class User {
     private String timeZone;
     @Column(name = "CREATION_DATE", nullable = false)
     private ZonedDateTime creationDate;
-    @Column(name = "MODIFICATION_DATE", nullable = false)
+    @Column(name = "MODIFICATION_DATE")
     private ZonedDateTime modificationDate;
 
     @Column(name = "FIRST_NAME", length = 45)

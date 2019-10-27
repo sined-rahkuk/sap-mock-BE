@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: mysql
+      - runningAs:
+          username: root
+  - changeSet:
+      id: sqlFile-creation
+      author: liquibase
+      changes:
+        - sqlFile:
+            dbms: mysql
+            encoding: utf8
+            endDelimiter: \nGO
+            path: schema.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+  - changeSet:
+      id: sqlFile-inserting
+      author: liquibase
+      changes:
+        - sqlFile:
+            dbms: mysql
+            encoding: utf8
+            endDelimiter: \nGO
+            path: data.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true

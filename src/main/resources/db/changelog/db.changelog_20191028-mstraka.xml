@@ -1,0 +1,43 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+
+    <changeSet author="m.straka" id="191028-001">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="USER"/>
+        </preConditions>
+        <dropTable cascadeConstraints="true"
+                   tableName="USER"/>
+    </changeSet>
+    <changeSet author="m.straka" id="191028-002">
+        <createTable tableName="USER">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="SAP_USERNAME" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EXCHANGE_USERNAME" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EXCHANGE_DOMAIN" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TIMEZONE" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATION_DATE" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODIFICATION_DATE" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIRST_NAME" type="VARCHAR(45)"/>
+            <column name="LAST_NAME" type="VARCHAR(45)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

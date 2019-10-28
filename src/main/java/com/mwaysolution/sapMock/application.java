@@ -1,13 +1,13 @@
-package com.example.demo;
+package com.mwaysolution.sapMock;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+class SapMockApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(SapMockApplication.class, args);
 	}
 
 }

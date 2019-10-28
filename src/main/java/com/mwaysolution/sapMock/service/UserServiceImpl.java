@@ -1,38 +1,70 @@
 package com.mwaysolution.sapMock.service;
 
 import com.mwaysolution.sapMock.model.User;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
 
-@Component
-public class UserServiceImpl implements UserService {
+@Service
+public class UserServiceImpl {
 
-    private List<User> userList = new ArrayList<>();
+    @Autowired
+    private UserService userService;
 
-    @Override
-    public Optional<User> get(int id) {
-        return Optional.ofNullable(userList.get(id));
+    public List<User> get(){
+        return userService.findAll();
     }
 
-    @Override
-    public Collection<User> getAll() {
-        return userList.stream().filter(Objects::nonNull).collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
+
+    public User getById(Integer id) {
+        return userService.findById(id);
     }
 
-    @Override
-    public void save(User user) {
-        userList.add(user);
+
+    public User create(User user){
+        if (userService.findBySapUsername(user.getSapUsername()) == null){
+            return userService.save(user);
+        }
+        return null;
     }
 
-    @Override
-    public void update(User user) {
-        userList.set(user.getId(), user);
+
+    public void deleteById(Integer id){
+        userService.delete(userService.findById(id));
     }
 
-    @Override
-    public void delete(User user) {
-        userList.set(user.getId(), null);
+
+    public User update(Integer userID,User user) {
+        BeanUtils.copyProperties(user, userService.findById(userID), "id");
+        return userService.save(userService.findById(userID));
     }
+
+    //private List<User> userList = new ArrayList<>();
+
+//    @Override
+//    public Optional<User> get(int id) {
+//        return Optional.ofNullable(userList.get(id));
+//    }
+//
+//    @Override
+//    public Collection<User> getAll() {
+//        return userList.stream().filter(Objects::nonNull).collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
+//    }
+//
+//    @Override
+//    public void save(User user) {
+//        userList.add(user);
+//    }
+//
+//    @Override
+//    public void update(User user) {
+//        userList.set(user.getId(), user);
+//    }
+//
+//    @Override
+//    public void delete(User user) {
+//        userList.set(user.getId(), null);
+//    }
 }

@@ -114,9 +114,3 @@ public class User {
     }
 }
 
-enum UserRegistrationStatus {
-    INIT,
-    REGISTERED,
-    UNREGISTERED
-}
-

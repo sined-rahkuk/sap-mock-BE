@@ -6,14 +6,14 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
         objectQuotingStrategy="QUOTE_ALL_OBJECTS">
 
-    <changeSet author="m.straka" id="191028-001">
+    <changeSet author="d.kukhar" id="191028-001">
         <preConditions onFail="MARK_RAN">
             <tableExists tableName="USER"/>
         </preConditions>
         <dropTable cascadeConstraints="true"
                    tableName="USER"/>
     </changeSet>
-    <changeSet author="m.straka" id="191028-002">
+    <changeSet author="d.kukhar" id="191028-002">
         <createTable tableName="USER">
             <column name="ID" type="INT" autoIncrement="true">
                 <constraints primaryKey="true"/>
@@ -30,10 +30,10 @@
             <column name="TIMEZONE" type="VARCHAR(128)">
                 <constraints nullable="false"/>
             </column>
-            <column name="CREATION_DATE" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="CREATION_DATE" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
-            <column name="MODIFICATION_DATE" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="MODIFICATION_DATE" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="REGISTRATION_STATUS" type="VARCHAR(16)" defaultValue="INIT">

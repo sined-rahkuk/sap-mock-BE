@@ -4,6 +4,10 @@ plugins {
 	id 'java'
 }
 
+configurations {
+	compile.exclude module: 'spring-boot-starter-logging'
+}
+
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
@@ -17,4 +21,5 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile 'org.springframework.boot:spring-boot-starter-log4j2'
 }

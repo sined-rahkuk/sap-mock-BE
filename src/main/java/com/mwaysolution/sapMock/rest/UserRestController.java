@@ -5,6 +5,7 @@ import com.mwaysolution.sapMock.model.User;
 import com.mwaysolution.sapMock.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -19,6 +20,9 @@ import java.util.List;
 @RequestMapping("users")
 public class UserRestController {
 
+    @Value("${syncItem.register.url}")
+    private String registerUrl;
+
     @Autowired
     private RestTemplate restTemplate;
 
@@ -26,7 +30,7 @@ public class UserRestController {
     private UserService userService;
 
     @GetMapping
-    public List<User> get(){
+    public List<User> get() {
         return userService.findAll();
     }
 
@@ -36,12 +40,12 @@ public class UserRestController {
     }
 
     @PostMapping
-    public User create(@RequestBody User user){
+    public User create(@RequestBody User user) {
         return userService.save(user);
     }
 
     @DeleteMapping("{id}")
-    public void deleteById(@PathVariable ("id") Integer id){
+    public void deleteById(@PathVariable("id") Integer id) {
         userService.deleteById(Long.valueOf(id));
     }
 
@@ -52,12 +56,19 @@ public class UserRestController {
     }
 
     @PutMapping("{id}/register")
-    public String register(@PathVariable("id") Integer id){
+    public String register(@PathVariable("id") Integer id) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        HttpEntity<User> entity = new HttpEntity<>(userService.findById(id),headers);
+        HttpEntity<User> entity = new HttpEntity<>(userService.findById(id), headers);
 
-        return restTemplate.exchange(
-                "http://localhost:8080/users/" + id, HttpMethod.POST, entity, String.class).getBody();
+        if (restTemplate.exchange(
+                registerUrl + "/" + id, HttpMethod.POST, entity, String.class).getStatusCodeValue() == 200) {
+            userService.findById(id).setFlag(true);
+            return restTemplate.exchange(
+                    registerUrl + "/" + id, HttpMethod.POST, entity, String.class).getBody();
+        }else{
+            userService.findById(id).setFlag(false);
+            return null;
+        }
     }
 }

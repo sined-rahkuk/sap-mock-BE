@@ -6,10 +6,7 @@ import com.mwaysolution.sapMock.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -61,13 +58,14 @@ public class UserRestController {
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         HttpEntity<User> entity = new HttpEntity<>(userService.findById(id), headers);
 
-        if (restTemplate.exchange(
-                registerUrl + "/" + id, HttpMethod.POST, entity, String.class).getStatusCodeValue() == 200) {
-            userService.findById(id).setFlag(true);
-            return restTemplate.exchange(
-                    registerUrl + "/" + id, HttpMethod.POST, entity, String.class).getBody();
+        ResponseEntity<String> responseEntity = restTemplate.exchange(
+                registerUrl + "/" + id, HttpMethod.POST, entity, String.class);
+
+        if (responseEntity.getStatusCodeValue() == 200) {
+            userService.findById(id).setRegistrationStatus(UserRegistrationStatus.REGISTERED);
+            return responseEntity.getBody();
         }else{
-            userService.findById(id).setFlag(false);
+            userService.findById(id).setRegistrationStatus(UserRegistrationStatus.UNREGISTERED);
             return null;
         }
     }

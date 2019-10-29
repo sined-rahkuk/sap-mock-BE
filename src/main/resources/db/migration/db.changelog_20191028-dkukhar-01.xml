@@ -30,10 +30,13 @@
             <column name="TIMEZONE" type="VARCHAR(128)">
                 <constraints nullable="false"/>
             </column>
-            <column name="CREATION_DATE" type="DATETIME">
+            <column name="CREATION_DATE" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="MODIFICATION_DATE" type="DATETIME">
+            <column name="MODIFICATION_DATE" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REGISTRATION_STATUS" type="VARCHAR(16)" defaultValue="INIT">
                 <constraints nullable="false"/>
             </column>
             <column name="FIRST_NAME" type="VARCHAR(45)"/>

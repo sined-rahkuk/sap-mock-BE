@@ -2,6 +2,7 @@ package com.mwaysolution.sapMock.rest;
 
 
 import com.mwaysolution.sapMock.model.User;
+import com.mwaysolution.sapMock.model.UserRegistrationStatus;
 import com.mwaysolution.sapMock.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,9 +65,7 @@ public class UserRestController {
         if (responseEntity.getStatusCodeValue() == 200) {
             userService.findById(id).setRegistrationStatus(UserRegistrationStatus.REGISTERED);
             return responseEntity.getBody();
-        }else{
-            userService.findById(id).setRegistrationStatus(UserRegistrationStatus.UNREGISTERED);
-            return null;
         }
+        return null;
     }
 }

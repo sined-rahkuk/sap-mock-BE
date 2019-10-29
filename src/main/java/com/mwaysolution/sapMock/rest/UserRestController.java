@@ -20,7 +20,7 @@ import java.util.List;
 public class UserRestController {
 
     @Autowired
-    RestTemplate restTemplate;
+    private RestTemplate restTemplate;
 
     @Autowired
     private UserService userService;
@@ -42,7 +42,7 @@ public class UserRestController {
 
     @DeleteMapping("{id}")
     public void deleteById(@PathVariable ("id") Integer id){
-        userService.delete(userService.findById(id));
+        userService.deleteById(Long.valueOf(id));
     }
 
     @PutMapping("{id}")
@@ -51,7 +51,7 @@ public class UserRestController {
         return userService.save(userService.findById(userID));
     }
 
-    @PostMapping("{id}/register")
+    @PutMapping("{id}/register")
     public String register(@PathVariable("id") Integer id){
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));

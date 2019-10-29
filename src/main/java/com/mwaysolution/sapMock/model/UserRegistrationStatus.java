@@ -1,6 +1,6 @@
 package com.mwaysolution.sapMock.model;
 
-enum UserRegistrationStatus {
+public enum UserRegistrationStatus {
     INIT,
     REGISTERED,
     UNREGISTERED

@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.mwaysolution.sapMock;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

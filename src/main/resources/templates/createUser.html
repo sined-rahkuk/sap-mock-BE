@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<form action="#" th:action="@{/gui/save}" th:object="${user}" method="post">
+    <table>
+        <tr>
+            <td>sapUsername</td>
+            <td><input type="text" th:field="*{sapUsername}"></td>
+        </tr>
+        <tr>
+            <td>exchangeUsername</td>
+            <td><input type="text" th:field="*{exchangeUsername}"></td>
+        </tr>
+        <tr>
+            <td>exchangeDomain</td>
+            <td><input type="text" th:field="*{exchangeDomain}"></td>
+        </tr>
+        <tr>
+            <td>timeZone</td>
+            <td><input type="text" th:field="*{timeZone}"></td>
+        </tr>
+        <tr>
+            <td>firstName</td>
+            <td><input type="text" th:field="*{firstName}"></td>
+        </tr>
+        <tr>
+            <td>lastName</td>
+            <td><input type="text" th:field="*{lastName}"></td>
+        </tr>
+        <tr>
+            <td><button type="submit">Save</button></td>
+        </tr>
+    </table>
+</form>
+</html>

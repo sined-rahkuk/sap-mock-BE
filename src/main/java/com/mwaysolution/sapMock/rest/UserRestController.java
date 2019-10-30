@@ -44,7 +44,7 @@ public class UserRestController {
 
     @DeleteMapping("{id}")
     public void deleteById(@PathVariable("id") Integer id) {
-        userService.deleteById(Long.valueOf(id));
+        userService.delete(userService.findById(id));
     }
 
     @PutMapping("{id}")

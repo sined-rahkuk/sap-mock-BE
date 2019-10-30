@@ -55,15 +55,17 @@ public class UserRestController {
 
     @PutMapping("{id}/register")
     public String register(@PathVariable("id") Integer id) {
+        User user = userService.findById(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        HttpEntity<User> entity = new HttpEntity<>(userService.findById(id), headers);
+        HttpEntity<User> entity = new HttpEntity<>(user, headers);
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(
                 registerUrl + "/" + id, HttpMethod.POST, entity, String.class);
 
         if (responseEntity.getStatusCodeValue() == 200) {
-            userService.findById(id).setRegistrationStatus(UserRegistrationStatus.REGISTERED);
+            user.setRegistrationStatus(UserRegistrationStatus.REGISTERED);
+            userService.save(user);
             return responseEntity.getBody();
         }
         return null;

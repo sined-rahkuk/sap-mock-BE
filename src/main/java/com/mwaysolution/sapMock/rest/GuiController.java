@@ -80,4 +80,9 @@ public class GuiController {
 
         return "redirect:/gui/users";
     }
+
+    @RequestMapping("/gui/users/register")
+    public String register(){
+        return "";
+    }
 }

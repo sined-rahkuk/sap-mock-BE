@@ -24,6 +24,8 @@
                 <th>lastName</th>
                 <th>Edit</th>
                 <th>Delete</th>
+                <th>Register</th>
+                <th>Unregister</th>
             </tr>
             </thead>
             <tbody>
@@ -40,6 +42,8 @@
                 <td th:text="${user.lastName}"></td>
                 <td><a th:href="@{/gui/edit/{id}(id=${user.id})}">Edit</a></td>
                 <td><a th:href="@{/gui/delete/{id}(id=${user.id})}">Delete</a></td>
+                <td><a th:href="@{/gui/users/register/{id}(id=${user.id})}">Register</a></td>
+                <td><a th:href="@{/gui/users/unregister/{id}(id=${user.id})}">Unregister</a></td>
             </tr>
             </tbody>
         </table>

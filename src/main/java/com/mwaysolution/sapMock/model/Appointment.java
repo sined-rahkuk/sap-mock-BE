@@ -3,6 +3,7 @@ package com.mwaysolution.sapMock.model;
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 
+//TODO: Ake fieldy bude mat?
 @Entity
 @Table(name = "APPOINTMENT")
 public class Appointment {

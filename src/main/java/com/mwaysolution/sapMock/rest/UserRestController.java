@@ -65,6 +65,6 @@ public class UserRestController {
             user.setRegistrationStatus(UserRegistrationStatus.REGISTERED);
             return userService.save(user);
         }
-        return null;
+        return user;
     }
 }

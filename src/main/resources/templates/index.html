@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Person List</title>
+    <link href="css" rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+</head>
+<body>
+<div th:switch="${listUsers}">
+    <h2 th:case="null">No users yet!</h2>
+    <div th:case="*">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>sapUsername</th>
+                <th>exchangeUsername</th>
+                <th>exchangeDomain</th>
+                <th>timeZone</th>
+                <th>creationDate</th>
+                <th>modificationDate</th>
+                <th>registrationStatus</th>
+                <th>firstName</th>
+                <th>lastName</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${listUsers}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.sapUsername}"></td>
+                <td th:text="${user.exchangeUsername}"></td>
+                <td th:text="${user.exchangeDomain}"></td>
+                <td th:text="${user.timeZone}"></td>
+                <td th:text="${user.creationDate}"></td>
+                <td th:text="${user.modificationDate}"></td>
+                <td th:text="${user.registrationStatus}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td><a th:href="@{/gui/edit/{id}(id=${user.id})}">Edit</a></td>
+                <td><a th:href="@{/gui/delete/{id}(id=${user.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/gui/createUser">Add a new user</a></p>
+</div>
+</body>
+</html>

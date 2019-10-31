@@ -26,6 +26,11 @@ public class User {
     @Column(name = "MODIFICATION_DATE", nullable = false)
     private ZonedDateTime modificationDate;
 
+
+    @Column(name = "REGISTRATION_STATUS", nullable = false, length = 16)
+    @Enumerated(EnumType.STRING)
+    private UserRegistrationStatus registrationStatus = UserRegistrationStatus.INIT;
+
     @Column(name = "FIRST_NAME", length = 45)
     private String firstName;
     @Column(name = "LAST_NAME", length = 45)
@@ -84,6 +89,17 @@ public class User {
         this.timeZone = timeZone;
     }
 
+<<<<<<< HEAD
+=======
+    public UserRegistrationStatus getRegistrationStatus() {
+        return registrationStatus;
+    }
+
+    public void setRegistrationStatus(UserRegistrationStatus registrationStatus) {
+        this.registrationStatus = registrationStatus;
+    }
+
+>>>>>>> SAP#12-create-appointment-entity
     public String getFirstName() {
         return firstName;
     }
@@ -100,3 +116,7 @@ public class User {
         this.lastName = lastName;
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> SAP#12-create-appointment-entity

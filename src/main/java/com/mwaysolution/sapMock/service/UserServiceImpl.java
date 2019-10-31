@@ -5,6 +5,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -23,22 +24,24 @@ public class UserServiceImpl {
     }
 
 
-    public User create(User user){
+    public User save(User user) throws RuntimeException {
         if (userService.findBySapUsername(user.getSapUsername()) == null){
+            user.setCreationDate(ZonedDateTime.now());
+            user.setModificationDate(ZonedDateTime.now());
             return userService.save(user);
         }
-        return null;
+        throw new RuntimeException("Current user already created");
     }
-
 
     public void deleteById(Integer id){
         userService.delete(userService.findById(id));
     }
 
 
-    public User update(Integer userID,User user) {
-        BeanUtils.copyProperties(user, userService.findById(userID), "id");
-        return userService.save(userService.findById(userID));
+    public User update(String sapUsername, User user) {
+        user.setModificationDate(ZonedDateTime.now());
+        BeanUtils.copyProperties(user, userService.findBySapUsername(sapUsername), "id", "creationDate");
+        return userService.save(userService.findBySapUsername(sapUsername));
     }
 
 }

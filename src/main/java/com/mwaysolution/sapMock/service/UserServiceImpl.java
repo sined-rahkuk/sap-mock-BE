@@ -1,7 +1,6 @@
 package com.mwaysolution.sapMock.service;
 
 import com.mwaysolution.sapMock.model.User;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,13 +23,21 @@ public class UserServiceImpl {
     }
 
 
-    public User save(User user) throws RuntimeException {
-        if (userService.findBySapUsername(user.getSapUsername()) == null){
-            user.setCreationDate(ZonedDateTime.now());
-            user.setModificationDate(ZonedDateTime.now());
-            return userService.save(user);
+    public User save(User user) {
+
+        if (user.getId() == null) {
+            return create(user);
         }
-        throw new RuntimeException("Current user already created");
+        return update(user);
+    }
+
+    private User create(User user) throws IllegalArgumentException {
+        if (userService.findBySapUsername(user.getSapUsername()) != null) {
+            throw new IllegalArgumentException("Current user " + user.getSapUsername() + " already created");
+        }
+        user.setCreationDate(ZonedDateTime.now());
+        user.setModificationDate(ZonedDateTime.now());
+        return userService.save(user);
     }
 
     public void deleteById(Integer id){
@@ -38,10 +45,14 @@ public class UserServiceImpl {
     }
 
 
-    public User update(String sapUsername, User user) {
-        user.setModificationDate(ZonedDateTime.now());
-        BeanUtils.copyProperties(user, userService.findBySapUsername(sapUsername), "id", "creationDate");
-        return userService.save(userService.findBySapUsername(sapUsername));
+    private User update(User user) {
+        User userSaved = getById(user.getId());
+        userSaved.setModificationDate(ZonedDateTime.now());
+        userSaved.setLastName(user.getLastName());
+        userSaved.setFirstName(user.getFirstName());
+        userSaved.setTimeZone(user.getTimeZone());
+
+        return userService.save(userSaved);
     }
 
 }

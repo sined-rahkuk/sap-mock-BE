@@ -4,7 +4,6 @@ package com.mwaysolution.sapMock.rest;
 import com.mwaysolution.sapMock.model.User;
 import com.mwaysolution.sapMock.model.UserRegistrationStatus;
 import com.mwaysolution.sapMock.service.UserService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -26,8 +25,6 @@ import java.util.List;
 
 @Controller
 public class GuiController {
-
-    private ZonedDateTime creationDate;
 
     @Value("${syncItem.register.url}")
     private String registerUrl;
@@ -59,7 +56,7 @@ public class GuiController {
         user.setCreationDate(ZonedDateTime.now());
         user.setModificationDate(ZonedDateTime.now());
         if (!user.getSapUsername().equals("") && !user.getExchangeUsername().equals("")
-                && !user.getExchangeDomain().equals("") && !user.getTimeZone().equals(""))
+                && !user.getExchangeDomain().equals(""))
             userService.save(user);
 
         return "redirect:/gui/users";
@@ -77,7 +74,6 @@ public class GuiController {
         ModelAndView model = new ModelAndView("updateUser");
 
         User user = userService.findById(id);
-        creationDate = user.getCreationDate();
         model.addObject("user", user);
 
         return model;
@@ -85,18 +81,18 @@ public class GuiController {
 
     @RequestMapping(value = "/gui/update/{id}", method = RequestMethod.POST)
     public String updateUser(@PathVariable("id") Integer id, @ModelAttribute("user") User user) {
-        user.setCreationDate(creationDate);
-        user.setModificationDate(ZonedDateTime.now());
-        BeanUtils.copyProperties(user, userService.findById(id), "id");
-        if (!user.getSapUsername().equals("") && !user.getExchangeUsername().equals("")
-                && !user.getExchangeDomain().equals("") && !user.getTimeZone().equals(""))
-            userService.save(userService.findById(id));
+        User savedUser = userService.findById(id);
+        savedUser.setModificationDate(ZonedDateTime.now());
+        savedUser.setLastName(user.getLastName());
+        savedUser.setFirstName(user.getFirstName());
+        savedUser.setTimeZone(user.getTimeZone());
+        userService.save(savedUser);
 
         return "redirect:/gui/users";
     }
 
     @RequestMapping("/gui/users/register/{id}")
-    public String register(@PathVariable("id") Integer id){
+    public String register(@PathVariable("id") Integer id) {
         User user = userService.findById(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));

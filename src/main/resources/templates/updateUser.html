@@ -3,19 +3,19 @@
     <table>
         <tr>
             <td>ID</td>
-            <td><input type="text" th:field="*{id}" readonly="readonly"></td>
+            <td th:text="${user.id}"></td>
         </tr>
         <tr>
             <td>sapUsername</td>
-            <td><input type="text" th:field="*{sapUsername}"></td>
+            <td th:text="${user.sapUsername}"></td>
         </tr>
         <tr>
             <td>exchangeUsername</td>
-            <td><input type="text" th:field="*{exchangeUsername}"></td>
+            <td th:text="${user.exchangeUsername}"></td>
         </tr>
         <tr>
             <td>exchangeDomain</td>
-            <td><input type="text" th:field="*{exchangeDomain}"></td>
+            <td th:text="${user.exchangeDomain}"></td>
         </tr>
         <tr>
             <td>timeZone</td>

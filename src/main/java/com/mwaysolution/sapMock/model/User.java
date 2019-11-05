@@ -89,6 +89,7 @@ public class User {
         this.timeZone = timeZone;
     }
 
+
     public UserRegistrationStatus getRegistrationStatus() {
         return registrationStatus;
     }
@@ -113,4 +114,3 @@ public class User {
         this.lastName = lastName;
     }
 }
-

@@ -53,7 +53,7 @@ public class Appointment {
     private User creator;
 
 
-//    TODO: wtf
+
     @OneToMany()
     private Set<String> participants;
 

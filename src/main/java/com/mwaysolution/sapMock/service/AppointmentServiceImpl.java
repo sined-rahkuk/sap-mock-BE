@@ -17,6 +17,7 @@ public class AppointmentServiceImpl {
     }
 
     public Appointment getById(String id) {
+//        TODO: throw exception in case of null
         return appointmentService.findAppointmentById(id);
     }
 

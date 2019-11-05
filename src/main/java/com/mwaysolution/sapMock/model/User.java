@@ -89,8 +89,7 @@ public class User {
         this.timeZone = timeZone;
     }
 
-<<<<<<< HEAD
-=======
+
     public UserRegistrationStatus getRegistrationStatus() {
         return registrationStatus;
     }
@@ -99,7 +98,6 @@ public class User {
         this.registrationStatus = registrationStatus;
     }
 
->>>>>>> SAP#12-create-appointment-entity
     public String getFirstName() {
         return firstName;
     }
@@ -116,7 +114,3 @@ public class User {
         this.lastName = lastName;
     }
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> SAP#12-create-appointment-entity

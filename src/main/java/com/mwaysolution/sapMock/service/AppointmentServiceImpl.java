@@ -49,18 +49,18 @@ public class AppointmentServiceImpl {
             appointmentSaved.setTimeZone(appointment.getTimeZone());
         if (!appointment.getLocation().equals("") && appointment.getTimeZone() != null)
             appointmentSaved.setLocation(appointment.getLocation());
-        if (!appointment.getTimeWhen().equals("") && appointment.getTimeZone() != null)
-            appointmentSaved.setTimeWhen(appointment.getTimeWhen());
-        if (!appointment.getTimeTill().equals("") && appointment.getTimeZone() != null)
-            appointmentSaved.setTimeTill(appointment.getTimeTill());
+        if (!appointment.getDateTimeFrom().equals("") && appointment.getTimeZone() != null)
+            appointmentSaved.setDateTimeFrom(appointment.getDateTimeFrom());
+        if (!appointment.getDateTimeTo().equals("") && appointment.getTimeZone() != null)
+            appointmentSaved.setDateTimeTo(appointment.getDateTimeTo());
         if (appointment.getReminder() != 0)
             appointmentSaved.setReminder(appointment.getReminder());
         if (!appointment.getTitle().equals("") && appointment.getTimeZone() != null)
             appointmentSaved.setTitle(appointment.getTitle());
         if (!appointment.getDescription().equals("") && appointment.getTimeZone() != null)
             appointmentSaved.setDescription(appointment.getDescription());
-        if (appointment.getPrivat() != null)
-            appointmentSaved.setPrivat(appointment.getPrivat());
+        if (appointment.getSensitivity() != null)
+            appointmentSaved.setSensitivity(appointment.getSensitivity());
         if (appointment.getShowAs() != null)
             appointmentSaved.setShowAs(appointment.getShowAs());
         appointmentSaved.setDominant(appointment.isDominant());

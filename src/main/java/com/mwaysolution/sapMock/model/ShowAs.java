@@ -1,5 +1,9 @@
 package com.mwaysolution.sapMock.model;
 
 public enum ShowAs {
-    OOF
+    BUSY,
+    TENTATIVE,
+    FREE,
+    OUT_OF_OFFICE,
+    WORKING_ELSEWHERE
 }

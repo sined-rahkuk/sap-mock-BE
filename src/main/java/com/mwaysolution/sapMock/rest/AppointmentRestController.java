@@ -36,12 +36,10 @@ public class AppointmentRestController {
     }
 
     @PutMapping("{id}")
-    public Appointment update(@PathVariable("id") String appointmentID, @RequestBody Appointment appointment)
-            throws IllegalArgumentException {
-        if (appointmentID.equals(appointment.getId()))
-            return appointmentService.save(appointment);
-        else throw new IllegalArgumentException("PATH ID DOES NOT MATCH ID IN BODY!");
-
+    public Appointment update(@PathVariable("id") String appointmentID, @RequestBody Appointment appointment) {
+        appointment.setId(appointmentID);
+        return appointmentService.save(appointment);
     }
+
 
 }

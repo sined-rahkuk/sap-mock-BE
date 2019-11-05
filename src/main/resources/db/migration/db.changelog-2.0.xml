@@ -24,16 +24,16 @@
             <column name="ACT_LOCATION" type="VARCHAR(256)">
                 <constraints nullable="false"/>
             </column>
-            <column name="TIMESTAMP_FROM" type="VARCHAR(64)">
+            <column name="DATETIME_FROM" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
-            <column name="TIMESTAMP_TO" type="VARCHAR(64)">
+            <column name="DATETIME_TO" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="SYNC_STATUS" type="VARCHAR(16)">
                 <constraints nullable="false"/>
             </column>
-            <column name="PRIVAT" type="VARCHAR(16)">
+            <column name="SENSITIVITY" type="VARCHAR(16)">
                 <constraints nullable="false"/>
             </column>
             <column name="SHOW_AS" type="VARCHAR(16)">
@@ -56,15 +56,15 @@
             <column name="DESCRIPTION" type="VARCHAR(2048)">
                 <constraints nullable="false"/>
             </column>
-
-            <column name="ORGANIZER" type="int">
-                <constraints nullable="false" foreignKeyName="fk_appointment_user" references="USER(ID)"/>
-            </column>
             <!--
             TODO: HOW TO DEFINE PARTICIPANTS?
-            -->
-
+             -->
 
         </createTable>
+    </changeSet>
+    <changeSet author="d.kukhar" id="191031-003">
+        <addForeignKeyConstraint constraintName="FK_APPOINTMENT_USER" baseTableName="APPOINTMENT"
+                                 baseColumnNames="USER_ID" referencedTableName="USER" referencedColumnNames="ID"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"/>
     </changeSet>
 </databaseChangeLog>

@@ -19,10 +19,10 @@ public class Appointment {
     private String timeZone;
     @Column(name = "ACT_LOCATION", length = 256)
     private String location;
-    @Column(name = "TIMESTMAP_FROM", nullable = false)
-    private String timeWhen;
-    @Column(name = "TIMESTMAP_TO", nullable = false)
-    private String timeTill;
+    @Column(name = "DATETIME_FROM", nullable = false)
+    private ZonedDateTime dateTimeFrom;
+    @Column(name = "DATETIME_TO", nullable = false)
+    private ZonedDateTime dateTimeTo;
 
     @Column(name = "SYNC_STATUS", nullable = false, length = 16)
     @Enumerated(EnumType.STRING)
@@ -41,9 +41,9 @@ public class Appointment {
     @Column(name = "DOMINANT", nullable = false)
     private boolean dominant;
 
-    @Column(name = "PRIVAT", nullable = false, length = 16)
+    @Column(name = "SENSITIVITY", nullable = false, length = 16)
     @Enumerated(EnumType.STRING)
-    private Privat privat;
+    private Sensitivity sensitivity;
     @Column(name = "SHOW_AS", nullable = false, length = 16)
     @Enumerated(EnumType.STRING)
     private ShowAs showAs;
@@ -82,20 +82,20 @@ public class Appointment {
         this.location = location;
     }
 
-    public String getTimeWhen() {
-        return timeWhen;
+    public ZonedDateTime getDateTimeFrom() {
+        return dateTimeFrom;
     }
 
-    public void setTimeWhen(String timeWhen) {
-        this.timeWhen = timeWhen;
+    public void setDateTimeFrom(ZonedDateTime dateTimeFrom) {
+        this.dateTimeFrom = dateTimeFrom;
     }
 
-    public String getTimeTill() {
-        return timeTill;
+    public ZonedDateTime getDateTimeTo() {
+        return dateTimeTo;
     }
 
-    public void setTimeTill(String timeTill) {
-        this.timeTill = timeTill;
+    public void setDateTimeTo(ZonedDateTime dateTimeTo) {
+        this.dateTimeTo = dateTimeTo;
     }
 
     public AppointmentSyncStatus getSyncStatus() {
@@ -154,12 +154,12 @@ public class Appointment {
         this.dominant = dominant;
     }
 
-    public Privat getPrivat() {
-        return privat;
+    public Sensitivity getSensitivity() {
+        return sensitivity;
     }
 
-    public void setPrivat(Privat privat) {
-        this.privat = privat;
+    public void setSensitivity(Sensitivity sensitivity) {
+        this.sensitivity = sensitivity;
     }
 
     public ShowAs getShowAs() {

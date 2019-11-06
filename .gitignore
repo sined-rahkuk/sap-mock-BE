@@ -2,6 +2,7 @@ HELP.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
 !**/src/main/**
 !**/src/test/**
 
@@ -30,3 +31,10 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+/bin/

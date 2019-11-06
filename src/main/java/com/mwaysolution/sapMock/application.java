@@ -8,13 +8,15 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 class SapMockApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(SapMockApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(SapMockApplication.class, args);
+	}
 
-    @Bean
-    public RestTemplate getRestTemplate() {
-        return new RestTemplate();
-    }
+	@Bean
+	public RestTemplate getRestTemplate() {
+		return new RestTemplate();
+	}
+
+
 }
 

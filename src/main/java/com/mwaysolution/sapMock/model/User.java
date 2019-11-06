@@ -40,6 +40,10 @@ public class User {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getSapUsername() {
         return sapUsername;
     }
@@ -89,6 +93,7 @@ public class User {
         this.timeZone = timeZone;
     }
 
+
     public UserRegistrationStatus getRegistrationStatus() {
         return registrationStatus;
     }
@@ -113,4 +118,3 @@ public class User {
         this.lastName = lastName;
     }
 }
-

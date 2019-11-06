@@ -3,7 +3,7 @@ package com.mwaysolution.sapMock.rest;
 
 import com.mwaysolution.sapMock.model.User;
 import com.mwaysolution.sapMock.model.UserRegistrationStatus;
-import com.mwaysolution.sapMock.service.UserService;
+import com.mwaysolution.sapMock.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -19,12 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
 
 @Controller
-public class GuiController {
+public class GuiUserController {
 
     @Value("${syncItem.register.url}")
     private String registerUrl;
@@ -33,14 +32,14 @@ public class GuiController {
     private RestTemplate restTemplate;
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @RequestMapping("/gui/users")
     public String viewHomePage(Model model) {
-        List<User> listUsers = userService.findAll();
+        List<User> listUsers = userService.get();
         model.addAttribute("listUsers", listUsers);
 
-        return "index";
+        return "indexUser";
     }
 
     @RequestMapping("/gui/createUser")
@@ -51,49 +50,40 @@ public class GuiController {
         return "createUser";
     }
 
-    @RequestMapping(value = "/gui/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/gui/users/save", method = RequestMethod.POST)
     public String saveUser(@ModelAttribute("user") User user) {
-        user.setCreationDate(ZonedDateTime.now());
-        user.setModificationDate(ZonedDateTime.now());
-        if (!user.getSapUsername().equals("") && !user.getExchangeUsername().equals("")
-                && !user.getExchangeDomain().equals(""))
-            userService.save(user);
+        userService.save(user);
 
         return "redirect:/gui/users";
     }
 
-    @RequestMapping("/gui/delete/{id}")
+    @RequestMapping("/gui/users/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id) {
-        userService.delete(userService.findById(id));
+        userService.deleteById(id);
 
         return "redirect:/gui/users";
     }
 
-    @RequestMapping("/gui/edit/{id}")
+    @RequestMapping("/gui/users/edit/{id}")
     public ModelAndView updateUserPage(@PathVariable("id") Integer id) {
         ModelAndView model = new ModelAndView("updateUser");
 
-        User user = userService.findById(id);
+        User user = userService.getById(id);
         model.addObject("user", user);
 
         return model;
     }
 
-    @RequestMapping(value = "/gui/update/{id}", method = RequestMethod.POST)
-    public String updateUser(@PathVariable("id") Integer id, @ModelAttribute("user") User user) {
-        User savedUser = userService.findById(id);
-        savedUser.setModificationDate(ZonedDateTime.now());
-        savedUser.setLastName(user.getLastName());
-        savedUser.setFirstName(user.getFirstName());
-        savedUser.setTimeZone(user.getTimeZone());
-        userService.save(savedUser);
+    @RequestMapping(value = "/gui/users/update", method = RequestMethod.POST)
+    public String updateUser( @ModelAttribute("user") User user) {
+        userService.save(user);
 
         return "redirect:/gui/users";
     }
 
     @RequestMapping("/gui/users/register/{id}")
     public String register(@PathVariable("id") Integer id) {
-        User user = userService.findById(id);
+        User user = userService.getById(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         HttpEntity<User> entity = new HttpEntity<>(user, headers);

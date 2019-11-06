@@ -4,7 +4,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
-import java.util.Set;
 
 @Entity
 @Table(name = "APPOINTMENT")
@@ -53,9 +52,9 @@ public class Appointment {
     private User creator;
 
 
-
-    @OneToMany()
-    private Set<String> participants;
+//
+//    @OneToMany()
+//    private Set<String> participants;
 
 
     public String getId() {
@@ -178,11 +177,11 @@ public class Appointment {
         this.creator = creator;
     }
 
-    public Set<String> getParticipants() {
-        return participants;
-    }
-
-    public void setParticipants(Set<String> participants) {
-        this.participants = participants;
-    }
+//    public Set<String> getParticipants() {
+//        return participants;
+//    }
+//
+//    public void setParticipants(Set<String> participants) {
+//        this.participants = participants;
+//    }
 }

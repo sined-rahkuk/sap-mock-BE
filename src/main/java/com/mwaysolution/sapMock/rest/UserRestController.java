@@ -3,8 +3,7 @@ package com.mwaysolution.sapMock.rest;
 
 import com.mwaysolution.sapMock.model.User;
 import com.mwaysolution.sapMock.model.UserRegistrationStatus;
-import com.mwaysolution.sapMock.service.UserService;
-import org.springframework.beans.BeanUtils;
+import com.mwaysolution.sapMock.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -25,16 +24,16 @@ public class UserRestController {
     private RestTemplate restTemplate;
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @GetMapping
     public List<User> get() {
-        return userService.findAll();
+        return userService.get();
     }
 
     @GetMapping("{id}")
     public User getById(@PathVariable("id") Integer id) {
-        return userService.findById(id);
+        return userService.getById(id);
     }
 
     @PostMapping
@@ -44,18 +43,17 @@ public class UserRestController {
 
     @DeleteMapping("{id}")
     public void deleteById(@PathVariable("id") Integer id) {
-        userService.delete(userService.findById(id));
+        userService.deleteById(id);
     }
 
-    @PutMapping("{id}")
-    public User update(@PathVariable("id") Integer userID, @RequestBody User user) {
-        BeanUtils.copyProperties(user, userService.findById(userID), "id");
-        return userService.save(userService.findById(userID));
+    @PutMapping
+    public User update(@RequestBody User user) {
+        return userService.save(user);
     }
 
     @PutMapping("{id}/register")
     public User register(@PathVariable("id") Integer id) {
-        User user = userService.findById(id);
+        User user = userService.getById(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         HttpEntity<User> entity = new HttpEntity<>(user, headers);

@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<form action="#" th:action="@{/gui/appointments/save}" th:object="${appointment}" method="post">
+    <table>
+        <tr>
+            <td>timeZone</td>
+            <td><input type="text" th:field="*{timeZone}"></td>
+        </tr>
+        <tr>
+            <td>location</td>
+            <td><input type="text" th:field="*{location}"></td>
+        </tr>
+        <tr>
+            <td>dateTimeFrom</td>
+            <td><input type="text" th:field="*{dateTimeFrom}"></td>
+        </tr>
+        <tr>
+            <td>dateTimeTo</td>
+            <td><input type="text" th:field="*{dateTimeTo}"></td>
+        </tr>
+        <tr>
+            <td>title</td>
+            <td><input type="text" th:field="*{title}"></td>
+        </tr>
+        <tr>
+            <td>description</td>
+            <td><input type="text" th:field="*{description}"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Save"></td>
+        </tr>
+    </table>
+</form>
+</html>

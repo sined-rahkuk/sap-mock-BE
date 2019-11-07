@@ -4,5 +4,6 @@ public enum AppointmentSyncStatus {
     NEW,
     SENT,
     READ,
-    UPDATED
+    UPDATED,
+    DELETED
 }

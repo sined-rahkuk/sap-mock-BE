@@ -1,0 +1,73 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+        objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+
+    <changeSet author="d.kukhar" id="191031-001">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="APPOINTMENT"/>
+        </preConditions>
+        <dropTable cascadeConstraints="true"
+                   tableName="APPOINTMENT"/>
+    </changeSet>
+    <changeSet author="d.kukhar" id="191031-002">
+        <createTable tableName="APPOINTMENT">
+            <column name="GUID" type="VARCHAR(45)">
+                <constraints primaryKey="true" unique="true" nullable="false"/>
+            </column>
+            <column name="TIMEZONE" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACT_LOCATION" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DATETIME_FROM" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DATETIME_TO" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SYNC_STATUS" type="VARCHAR(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SENSITIVITY" type="VARCHAR(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SHOW_AS" type="VARCHAR(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REMINDER" type="INT">
+            </column>
+            <column name="DOMINANT" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATION_DATE" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODIFICATION_DATE" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TITLE" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR(2048)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <!--
+            TODO: HOW TO DEFINE PARTICIPANTS?
+             -->
+
+        </createTable>
+    </changeSet>
+    <changeSet author="d.kukhar" id="191031-003">
+        <addForeignKeyConstraint constraintName="FK_APPOINTMENT_USER" baseTableName="APPOINTMENT"
+                                 baseColumnNames="USER_ID" referencedTableName="USER" referencedColumnNames="ID"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"/>
+    </changeSet>
+</databaseChangeLog>

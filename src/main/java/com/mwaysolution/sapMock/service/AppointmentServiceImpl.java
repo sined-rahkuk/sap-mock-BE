@@ -68,7 +68,7 @@ public class AppointmentServiceImpl {
 
 //        may creator be changed?
 
-        appointmentSaved.setParticipants(appointment.getParticipants());
+//        appointmentSaved.setParticipants(appointment.getParticipants());
 
 
         return appointmentService.save(appointmentSaved);

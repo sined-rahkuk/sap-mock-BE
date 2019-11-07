@@ -56,6 +56,9 @@
             <column name="DESCRIPTION" type="VARCHAR(2048)">
                 <constraints nullable="false"/>
             </column>
+            <column name="USER_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
             <!--
             TODO: HOW TO DEFINE PARTICIPANTS?
              -->

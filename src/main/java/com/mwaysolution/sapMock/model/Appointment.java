@@ -47,12 +47,10 @@ public class Appointment {
     @Enumerated(EnumType.STRING)
     private ShowAs showAs;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ORGANIZER", referencedColumnName = "id", nullable = false)
-    private User creator;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "USER_ID", nullable = false, updatable = false)
+    private User user;
 
-
-//
 //    @OneToMany()
 //    private Set<String> participants;
 
@@ -169,12 +167,12 @@ public class Appointment {
         this.showAs = showAs;
     }
 
-    public User getCreator() {
-        return creator;
+    public User getUser() {
+        return user;
     }
 
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public void setUser(User user) {
+        this.user = user;
     }
 
 //    public Set<String> getParticipants() {

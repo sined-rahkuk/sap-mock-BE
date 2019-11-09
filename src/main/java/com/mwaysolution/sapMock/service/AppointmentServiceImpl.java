@@ -1,6 +1,9 @@
 package com.mwaysolution.sapMock.service;
 
 import com.mwaysolution.sapMock.model.Appointment;
+import com.mwaysolution.sapMock.model.AppointmentSyncStatus;
+import com.mwaysolution.sapMock.model.Sensitivity;
+import com.mwaysolution.sapMock.model.ShowAs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +40,11 @@ public class AppointmentServiceImpl {
     private Appointment create(Appointment appointment) {
         appointment.setCreationDate(ZonedDateTime.now());
         appointment.setModificationDate(ZonedDateTime.now());
+        appointment.setDateTimeFrom(ZonedDateTime.now());
+        appointment.setDateTimeTo(ZonedDateTime.now());
+        appointment.setSyncStatus(AppointmentSyncStatus.NEW);
+        appointment.setSensitivity(Sensitivity.NORMAL);
+        appointment.setShowAs(ShowAs.FREE);
         return appointmentService.save(appointment);
     }
 
@@ -50,9 +58,9 @@ public class AppointmentServiceImpl {
             appointmentSaved.setTimeZone(appointment.getTimeZone());
         if (!appointment.getLocation().equals("") && appointment.getTimeZone() != null)
             appointmentSaved.setLocation(appointment.getLocation());
-        if (!appointment.getDateTimeFrom().equals("") && appointment.getTimeZone() != null)
+        if (appointment.getDateTimeFrom() != null)
             appointmentSaved.setDateTimeFrom(appointment.getDateTimeFrom());
-        if (!appointment.getDateTimeTo().equals("") && appointment.getTimeZone() != null)
+        if (appointment.getDateTimeTo() != null)
             appointmentSaved.setDateTimeTo(appointment.getDateTimeTo());
         if (appointment.getReminder() != 0)
             appointmentSaved.setReminder(appointment.getReminder());

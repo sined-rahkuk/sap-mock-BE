@@ -47,14 +47,13 @@
                 <td th:text="${appointment.dominant}"></td>
                 <td th:text="${appointment.sensitivity}"></td>
                 <td th:text="${appointment.showAs}"></td>
-                <td th:text="${appointment.user}"></td>
+                <td th:text="${appointment.user.sapUsername}"></td>
                 <td><a th:href="@{/gui/appointments/edit/{id}(id=${appointment.id})}">Edit</a></td>
-                <td><a th:href="@{/gui/appointment/delete/{id}(id=${appointment.id})}">Delete</a></td>
+                <td><a th:href="@{/gui/appointments/delete/{id}(id=${appointment.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <p><a href="/gui/createAppointment">Add a new appointment</a></p>
 </div>
 </body>
 </html>

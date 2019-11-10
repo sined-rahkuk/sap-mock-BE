@@ -43,8 +43,7 @@ public class AppointmentServiceImpl {
         appointment.setDateTimeFrom(ZonedDateTime.now());
         appointment.setDateTimeTo(ZonedDateTime.now());
         appointment.setSyncStatus(AppointmentSyncStatus.NEW);
-        appointment.setSensitivity(Sensitivity.NORMAL);
-        appointment.setShowAs(ShowAs.FREE);
+
         return appointmentService.save(appointment);
     }
 

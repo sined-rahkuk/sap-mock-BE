@@ -17,6 +17,33 @@
             <td>reminder</td>
             <td><input type="number" th:field="*{reminder}"></td>
         </tr>
+        <tr>
+            <td>Sensitivity</td>
+            <td>
+                <select th:field="*{sensitivity}">
+                    <option th:value="${T(com.mwaysolution.sapMock.model.Sensitivity).NORMAL}">NORMAL</option>
+                    <option th:value="${T(com.mwaysolution.sapMock.model.Sensitivity).PERSONAL}">PERSONAL</option>
+                    <option th:value="${T(com.mwaysolution.sapMock.model.Sensitivity).PRIVATE}">PRIVATE</option>
+                    <option th:value="${T(com.mwaysolution.sapMock.model.Sensitivity).CONFIDENTIAL}">CONFIDENTIAL</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>ShowAs</td>
+            <td>
+                <select th:field="*{showAs}">
+                    <option th:value="${T(com.mwaysolution.sapMock.model.ShowAs).BUSY}">BUSY</option>
+                    <option th:value="${T(com.mwaysolution.sapMock.model.ShowAs).TENTATIVE}">TENTATIVE</option>
+                    <option th:value="${T(com.mwaysolution.sapMock.model.ShowAs).FREE}">FREE</option>
+                    <option th:value="${T(com.mwaysolution.sapMock.model.ShowAs).OUT_OF_OFFICE}">OUT_OF_OFFICE</option>
+                    <option th:value="${T(com.mwaysolution.sapMock.model.ShowAs).WORKING_ELSEWHERE}">WORKING_ELSEWHERE</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>dominant</td>
+            <td><input type="checkbox" th:field="*{dominant}"></td>
+        </tr>
 <!--        <tr>-->
 <!--            <td>dateTimeFrom</td>-->
 <!--            <td><input type="text" th:field="*{dateTimeFrom}"></td>-->

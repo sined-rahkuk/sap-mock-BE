@@ -38,10 +38,11 @@ public class AppointmentServiceImpl {
     }
 
     private Appointment create(Appointment appointment) {
-        appointment.setCreationDate(ZonedDateTime.now());
-        appointment.setModificationDate(ZonedDateTime.now());
-        appointment.setDateTimeFrom(ZonedDateTime.now());
-        appointment.setDateTimeTo(ZonedDateTime.now());
+        ZonedDateTime time = ZonedDateTime.now();
+        appointment.setCreationDate(time);
+        appointment.setModificationDate(time);
+        appointment.setDateTimeFrom(time.plusDays(1));
+        appointment.setDateTimeTo(time.plusDays(1).plusHours(1));
         appointment.setSyncStatus(AppointmentSyncStatus.NEW);
 
         return appointmentService.save(appointment);

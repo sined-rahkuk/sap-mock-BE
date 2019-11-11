@@ -36,9 +36,9 @@ public class GuiAppointmentController {
     }
 
     @RequestMapping("/gui/appointments/create/{id}")
-    public String createAppointment(Model model, @PathVariable("id") Integer id) {
+    public String createAppointment(Model model, @PathVariable("id") Integer userId) {
         Appointment appointment = new Appointment();
-        user = userService.getById(id);
+        user = userService.getById(userId);
         appointment.setUser(user);
         model.addAttribute("appointment", appointment);
 

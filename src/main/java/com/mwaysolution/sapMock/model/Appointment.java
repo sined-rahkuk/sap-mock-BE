@@ -43,7 +43,7 @@ public class Appointment {
     @Column(name = "SENSITIVITY", nullable = false, length = 16)
     @Enumerated(EnumType.STRING)
     private Sensitivity sensitivity;
-    @Column(name = "SHOW_AS", nullable = false, length = 16)
+    @Column(name = "SHOW_AS", nullable = false, length = 17)
     @Enumerated(EnumType.STRING)
     private ShowAs showAs;
 

@@ -2,8 +2,6 @@ package com.mwaysolution.sapMock.service;
 
 import com.mwaysolution.sapMock.model.Appointment;
 import com.mwaysolution.sapMock.model.AppointmentSyncStatus;
-import com.mwaysolution.sapMock.model.Sensitivity;
-import com.mwaysolution.sapMock.model.ShowAs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

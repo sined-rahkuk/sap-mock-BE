@@ -36,7 +36,7 @@
             <column name="SENSITIVITY" type="VARCHAR(16)">
                 <constraints nullable="false"/>
             </column>
-            <column name="SHOW_AS" type="VARCHAR(16)">
+            <column name="SHOW_AS" type="VARCHAR(17)">
                 <constraints nullable="false"/>
             </column>
             <column name="REMINDER" type="INT">

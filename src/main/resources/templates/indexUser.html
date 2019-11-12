@@ -24,6 +24,7 @@
                 <th>lastName</th>
                 <th>Edit</th>
                 <th>Delete</th>
+                <th>Create Appointment</th>
                 <th>Register</th>
                 <th>Unregister</th>
             </tr>
@@ -42,6 +43,7 @@
                 <td th:text="${user.lastName}"></td>
                 <td><a th:href="@{/gui/users/edit/{id}(id=${user.id})}">Edit</a></td>
                 <td><a th:href="@{/gui/users/delete/{id}(id=${user.id})}">Delete</a></td>
+                <td><a th:href="@{/gui/appointments/create/{id}(id=${user.id})}">Create Appointment</a></td>
                 <td><a th:href="@{/gui/users/register/{id}(id=${user.id})}">Register</a></td>
                 <td><a th:href="@{/gui/users/unregister/{id}(id=${user.id})}">Unregister</a></td>
             </tr>
@@ -49,6 +51,7 @@
         </table>
     </div>
     <p><a href="/gui/createUser">Add a new user</a></p>
+    <p><a href="/gui/appointments">Appointments</a></p>
 </div>
 </body>
 </html>

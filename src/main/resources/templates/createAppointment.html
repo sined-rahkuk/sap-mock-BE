@@ -3,27 +3,62 @@
     <table>
         <tr>
             <td>timeZone</td>
-            <td><input type="text" th:field="*{timeZone}"></td>
+            <td><input type="text" th:field="*{timeZone}" required></td>
         </tr>
         <tr>
             <td>location</td>
-            <td><input type="text" th:field="*{location}"></td>
+            <td><input type="text" th:field="*{location}" required></td>
         </tr>
         <tr>
-            <td>dateTimeFrom</td>
-            <td><input type="text" th:field="*{dateTimeFrom}"></td>
+            <td>reminder</td>
+            <td><input type="number" th:field="*{reminder}" required></td>
         </tr>
         <tr>
-            <td>dateTimeTo</td>
-            <td><input type="text" th:field="*{dateTimeTo}"></td>
+            <td>Sensitivity</td>
+            <td>
+                <select th:field="*{sensitivity}" required>
+                    <option th:value="${T(com.mwaysolution.sapMock.model.Sensitivity).NORMAL}">NORMAL</option>
+                    <option th:value="${T(com.mwaysolution.sapMock.model.Sensitivity).PERSONAL}">PERSONAL</option>
+                    <option th:value="${T(com.mwaysolution.sapMock.model.Sensitivity).PRIVATE}">PRIVATE</option>
+                    <option th:value="${T(com.mwaysolution.sapMock.model.Sensitivity).CONFIDENTIAL}">CONFIDENTIAL</option>
+                </select>
+            </td>
         </tr>
+        <tr>
+            <td>ShowAs</td>
+            <td>
+                <select th:field="*{showAs}" required>
+                    <option th:value="${T(com.mwaysolution.sapMock.model.ShowAs).BUSY}">BUSY</option>
+                    <option th:value="${T(com.mwaysolution.sapMock.model.ShowAs).TENTATIVE}">TENTATIVE</option>
+                    <option th:value="${T(com.mwaysolution.sapMock.model.ShowAs).FREE}">FREE</option>
+                    <option th:value="${T(com.mwaysolution.sapMock.model.ShowAs).OUT_OF_OFFICE}">OUT_OF_OFFICE</option>
+                    <option th:value="${T(com.mwaysolution.sapMock.model.ShowAs).WORKING_ELSEWHERE}">WORKING_ELSEWHERE</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>dominant</td>
+            <td><input type="checkbox" th:field="*{dominant}"></td>
+        </tr>
+        <!--        <tr>-->
+        <!--            <td>dateTimeFrom</td>-->
+        <!--            <td><input type="datetime-local" th:value="${dateTimeFrom}"></td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--            <td>dateTimeTo</td>-->
+        <!--            <td><input type="datetime-local" th:value="${dateTimeTo}"></td>-->
+        <!--        </tr>-->
         <tr>
             <td>title</td>
-            <td><input type="text" th:field="*{title}"></td>
+            <td><input type="text" th:field="*{title}" required></td>
         </tr>
         <tr>
             <td>description</td>
-            <td><input type="text" th:field="*{description}"></td>
+            <td><textarea th:field="*{description}" required></textarea></td>
+        </tr>
+        <tr>
+            <td>sapUsername</td>
+            <td><input type="text" th:field="*{user.sapUsername}" readonly="readonly"></td>
         </tr>
         <tr>
             <td><input type="submit" value="Save"></td>

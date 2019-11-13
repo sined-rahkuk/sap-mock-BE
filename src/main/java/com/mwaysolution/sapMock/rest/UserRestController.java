@@ -20,6 +20,9 @@ public class UserRestController {
     @Value("${syncItem.register.url}")
     private String registerUrl;
 
+    @Value("${syncItem.unregister.url}")
+    private String unregisterUrl;
+
     @Autowired
     private RestTemplate restTemplate;
 
@@ -64,6 +67,22 @@ public class UserRestController {
                         "&domain=" + user.getExchangeDomain(),
                 HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200) {
             user.setRegistrationStatus(UserRegistrationStatus.REGISTERED);
+            return userService.save(user);
+        }
+        return user;
+    }
+
+    @PutMapping("{id}/unregister")
+    public User unregister(@PathVariable("id") Integer id) {
+        User user = userService.getById(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        HttpEntity<User> entity = new HttpEntity<>(user, headers);
+        if (restTemplate.exchange(
+                unregisterUrl +
+                        "?username=" + user.getSapUsername(),
+                HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200) {
+            user.setRegistrationStatus(UserRegistrationStatus.UNREGISTERED);
             return userService.save(user);
         }
         return user;

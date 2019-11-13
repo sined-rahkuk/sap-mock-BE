@@ -51,6 +51,7 @@ public class UserServiceImpl {
         userSaved.setLastName(user.getLastName());
         userSaved.setFirstName(user.getFirstName());
         userSaved.setTimeZone(user.getTimeZone());
+        userSaved.setRegistrationStatus(user.getRegistrationStatus());
 
         return userService.save(userSaved);
     }

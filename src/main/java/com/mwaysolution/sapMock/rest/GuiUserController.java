@@ -28,6 +28,9 @@ public class GuiUserController {
     @Value("${syncItem.register.url}")
     private String registerUrl;
 
+    @Value("${syncItem.unregister.url}")
+    private String unregisterUrl;
+
     @Autowired
     private RestTemplate restTemplate;
 
@@ -94,6 +97,22 @@ public class GuiUserController {
                         "&domain=" + user.getExchangeDomain(),
                 HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200) {
             user.setRegistrationStatus(UserRegistrationStatus.REGISTERED);
+            userService.save(user);
+        }
+        return "redirect:/gui/users";
+    }
+
+    @RequestMapping("/gui/users/unregister/{id}")
+    public String unregister(@PathVariable("id") Integer id) {
+        User user = userService.getById(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        HttpEntity<User> entity = new HttpEntity<>(user, headers);
+        if (restTemplate.exchange(
+                unregisterUrl +
+                        "?username=" + user.getSapUsername(),
+                HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200) {
+            user.setRegistrationStatus(UserRegistrationStatus.UNREGISTERED);
             userService.save(user);
         }
         return "redirect:/gui/users";

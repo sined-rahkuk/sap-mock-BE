@@ -57,9 +57,12 @@ public class UserRestController {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         HttpEntity<User> entity = new HttpEntity<>(user, headers);
-
         if (restTemplate.exchange(
-                registerUrl + "/" + id, HttpMethod.POST, entity, String.class).getStatusCodeValue() == 200) {
+                registerUrl +
+                        "?username=" + user.getSapUsername() +
+                        "&email=" + user.getExchangeUsername() +
+                        "&domain=" + user.getExchangeDomain(),
+                HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200) {
             user.setRegistrationStatus(UserRegistrationStatus.REGISTERED);
             return userService.save(user);
         }

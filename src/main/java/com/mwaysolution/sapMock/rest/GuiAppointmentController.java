@@ -66,8 +66,8 @@ public class GuiAppointmentController {
     @RequestMapping(value = "/gui/appointments/save", method = RequestMethod.POST)
     public String saveAppointment(@ModelAttribute("appointment") Appointment appointment) {
         appointment.setUser(user);
-        sendNotification(appointment, "CREATE");
-        appointmentService.save(appointment);
+        Appointment appointmentSaved = appointmentService.save(appointment);
+        sendNotification(appointmentSaved, "CREATE");
 
         return "redirect:/gui/appointments";
     }
@@ -102,13 +102,14 @@ public class GuiAppointmentController {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         HttpEntity<Appointment> entity = new HttpEntity<>(appointment, headers);
+        operation = operation.toUpperCase();
         if (operation.equals("UPDATE") || operation.equals("DELETE")) {
             if (restTemplate.exchange(
                     hostname + notificationURL +
                             "?operation=" + operation +
                             "&header_guid=" + appointment.getId(),
                     HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200)
-                System.out.println("Notification for appointment" + appointment.getTitle() + "was send");
+                System.out.println("Notification for appointment " + appointment.getTitle().toUpperCase() + " was sent");
         } else {
             if (restTemplate.exchange(
                     hostname + notificationURL +
@@ -117,7 +118,7 @@ public class GuiAppointmentController {
                             "&username=" + appointment.getUser().getSapUsername() +
                             "&timestamp=" + DateTimeFormatter.ofPattern("yyyyMMddhhmmss").format(ZonedDateTime.now()),
                     HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200)
-                System.out.println("Notification for appointment" + appointment.getTitle() + "was send");
+                System.out.println("Notification for appointment " + appointment.getTitle().toUpperCase() + " was sent");
         }
     }
 }

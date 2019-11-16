@@ -7,11 +7,11 @@
         </tr>
         <tr>
             <td>timeZone</td>
-            <td><input type="text" th:field="*{timeZone}"></td>
+            <td><input type="text" th:field="*{timeZone}" pattern="[+-][0-9]{2}:[0-9]{2}\b"></td>
         </tr>
         <tr>
             <td>location</td>
-            <td><input type="text" th:field="*{location}"></td>
+            <td><input type="text" th:field="*{location}" pattern="[A-Za-z]+"></td>
         </tr>
         <tr>
             <td>reminder</td>

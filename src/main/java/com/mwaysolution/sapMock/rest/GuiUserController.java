@@ -31,6 +31,9 @@ public class GuiUserController {
     @Value("${syncItem.unregister.url}")
     private String unregisterUrl;
 
+    @Value("${syncItem.hostname}")
+    private String hostname;
+
     @Autowired
     private RestTemplate restTemplate;
 
@@ -91,10 +94,11 @@ public class GuiUserController {
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         HttpEntity<User> entity = new HttpEntity<>(user, headers);
         if (restTemplate.exchange(
-                registerUrl +
+                hostname + registerUrl +
                         "?username=" + user.getSapUsername() +
                         "&email=" + user.getExchangeUsername() +
-                        "&domain=" + user.getExchangeDomain(),
+                        "&domain=" + user.getExchangeDomain() +
+                        "&timezone=" + user.getTimeZone(),
                 HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200) {
             user.setRegistrationStatus(UserRegistrationStatus.REGISTERED);
             userService.save(user);
@@ -109,7 +113,7 @@ public class GuiUserController {
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         HttpEntity<User> entity = new HttpEntity<>(user, headers);
         if (restTemplate.exchange(
-                unregisterUrl +
+                hostname + unregisterUrl +
                         "?username=" + user.getSapUsername(),
                 HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200) {
             user.setRegistrationStatus(UserRegistrationStatus.UNREGISTERED);

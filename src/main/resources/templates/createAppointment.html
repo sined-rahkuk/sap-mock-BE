@@ -3,11 +3,11 @@
     <table>
         <tr>
             <td>timeZone</td>
-            <td><input type="text" th:field="*{timeZone}" required></td>
+            <td><input type="text" pattern="[+-][0-9]{2}:[0-9]{2}\b" placeholder="+02:00" th:field="*{timeZone}" required></td>
         </tr>
         <tr>
             <td>location</td>
-            <td><input type="text" th:field="*{location}" required></td>
+            <td><input type="text" th:field="*{location}" pattern="[A-Za-z]+" placeholder="Kosice" required></td>
         </tr>
         <tr>
             <td>reminder</td>

@@ -97,8 +97,8 @@ public class GuiAppointmentController {
                                     @RequestParam("dateTimeTO") String dateTimeTO) {
         appointment.setDateTimeFrom(ZonedDateTime.parse(dateTimeFROM + appointment.getTimeZone()));
         appointment.setDateTimeTo(ZonedDateTime.parse(dateTimeTO + appointment.getTimeZone()));
-        sendNotification(appointment, "UPDATE");
         appointmentService.save(appointment);
+        sendNotification(appointment, "UPDATE");
 
         return "redirect:/gui/appointments";
     }

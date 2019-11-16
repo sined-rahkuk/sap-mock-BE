@@ -44,8 +44,9 @@ public class AppointmentRestController {
 
     @PostMapping
     public Appointment create(@RequestBody Appointment appointment) {
-        sendNotification(appointment, "CREATE");
-        return appointmentService.save(appointment);
+        Appointment appointmentSaved = appointmentService.save(appointment);
+        sendNotification(appointmentSaved, "CREATE");
+        return appointmentSaved;
     }
 
     @DeleteMapping("{id}")
@@ -71,7 +72,7 @@ public class AppointmentRestController {
                             "?operation=" + operation +
                             "&header_guid=" + appointment.getId(),
                     HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200)
-                System.out.println("Notification for appointment" + appointment.getTitle().toUpperCase() + "was sent");
+                System.out.println("Notification for appointment " + operation + " " + appointment.getTitle().toUpperCase() + " was sent");
         } else {
             if (restTemplate.exchange(
                     hostname + notificationURL +
@@ -80,7 +81,7 @@ public class AppointmentRestController {
                             "&username=" + appointment.getUser().getSapUsername() +
                             "&timestamp=" + DateTimeFormatter.ofPattern("yyyyMMddhhmmss").format(ZonedDateTime.now()),
                     HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200)
-                System.out.println("Notification for appointment" + appointment.getTitle().toUpperCase() + "was sent");
+                System.out.println("Notification for appointment " + operation + " " + appointment.getTitle().toUpperCase() + " was sent");
         }
     }
 }

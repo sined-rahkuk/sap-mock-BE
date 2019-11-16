@@ -92,7 +92,11 @@ public class GuiAppointmentController {
     }
 
     @RequestMapping(value = "/gui/appointments/update", method = RequestMethod.POST)
-    public String updateAppointment(@ModelAttribute("appointment") Appointment appointment) {
+    public String updateAppointment(@ModelAttribute("appointment") Appointment appointment,
+                                    @RequestParam("dateTimeFROM") String dateTimeFROM,
+                                    @RequestParam("dateTimeTO") String dateTimeTO) {
+        appointment.setDateTimeFrom(ZonedDateTime.parse(dateTimeFROM + appointment.getTimeZone()));
+        appointment.setDateTimeTo(ZonedDateTime.parse(dateTimeTO + appointment.getTimeZone()));
         sendNotification(appointment, "UPDATE");
         appointmentService.save(appointment);
 
@@ -110,7 +114,7 @@ public class GuiAppointmentController {
                             "?operation=" + operation +
                             "&header_guid=" + appointment.getId(),
                     HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200)
-                System.out.println("Notification for appointment " + appointment.getTitle().toUpperCase() + " was sent");
+                System.out.println("Notification for appointment " + operation + " " + appointment.getTitle().toUpperCase() + " was sent");
         } else {
             if (restTemplate.exchange(
                     hostname + notificationURL +
@@ -119,7 +123,7 @@ public class GuiAppointmentController {
                             "&username=" + appointment.getUser().getSapUsername() +
                             "&timestamp=" + DateTimeFormatter.ofPattern("yyyyMMddhhmmss").format(ZonedDateTime.now()),
                     HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200)
-                System.out.println("Notification for appointment " + appointment.getTitle().toUpperCase() + " was sent");
+                System.out.println("Notification for appointment " + operation + " " +  appointment.getTitle().toUpperCase() + " was sent");
         }
     }
 }

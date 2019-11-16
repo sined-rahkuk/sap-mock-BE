@@ -13,10 +13,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -64,8 +61,12 @@ public class GuiAppointmentController {
     }
 
     @RequestMapping(value = "/gui/appointments/save", method = RequestMethod.POST)
-    public String saveAppointment(@ModelAttribute("appointment") Appointment appointment) {
+    public String saveAppointment(@ModelAttribute("appointment") Appointment appointment,
+                                  @RequestParam("dateTimeFROM") String dateTimeFROM,
+                                  @RequestParam("dateTimeTO") String dateTimeTO) {
         appointment.setUser(user);
+        appointment.setDateTimeFrom(ZonedDateTime.parse(dateTimeFROM + appointment.getTimeZone()));
+        appointment.setDateTimeTo(ZonedDateTime.parse(dateTimeTO + appointment.getTimeZone()));
         Appointment appointmentSaved = appointmentService.save(appointment);
         sendNotification(appointmentSaved, "CREATE");
 
@@ -101,7 +102,7 @@ public class GuiAppointmentController {
     private void sendNotification(Appointment appointment, String operation) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        HttpEntity<Appointment> entity = new HttpEntity<>(appointment, headers);
+        HttpEntity<String> entity = new HttpEntity<>(null, headers);
         operation = operation.toUpperCase();
         if (operation.equals("UPDATE") || operation.equals("DELETE")) {
             if (restTemplate.exchange(

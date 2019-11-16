@@ -39,8 +39,6 @@ public class AppointmentServiceImpl {
         ZonedDateTime time = ZonedDateTime.now();
         appointment.setCreationDate(time);
         appointment.setModificationDate(time);
-        appointment.setDateTimeFrom(time.plusDays(1));
-        appointment.setDateTimeTo(time.plusDays(1).plusHours(1));
         appointment.setSyncStatus(AppointmentSyncStatus.NEW);
 
         return appointmentService.save(appointment);

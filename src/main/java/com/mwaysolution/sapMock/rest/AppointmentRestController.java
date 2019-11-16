@@ -64,14 +64,14 @@ public class AppointmentRestController {
     private void sendNotification(Appointment appointment, String operation) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        HttpEntity<Appointment> entity = new HttpEntity<>(appointment, headers);
+        HttpEntity<String> entity = new HttpEntity<>(null, headers);
         if (operation.equals("UPDATE") || operation.equals("DELETE")) {
             if (restTemplate.exchange(
                     hostname + notificationURL +
                             "?operation=" + operation +
                             "&header_guid=" + appointment.getId(),
                     HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200)
-                System.out.println("Notification for appointment" + appointment.getTitle() + "was send");
+                System.out.println("Notification for appointment" + appointment.getTitle().toUpperCase() + "was sent");
         } else {
             if (restTemplate.exchange(
                     hostname + notificationURL +
@@ -80,7 +80,7 @@ public class AppointmentRestController {
                             "&username=" + appointment.getUser().getSapUsername() +
                             "&timestamp=" + DateTimeFormatter.ofPattern("yyyyMMddhhmmss").format(ZonedDateTime.now()),
                     HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200)
-                System.out.println("Notification for appointment" + appointment.getTitle() + "was send");
+                System.out.println("Notification for appointment" + appointment.getTitle().toUpperCase() + "was sent");
         }
     }
 }

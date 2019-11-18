@@ -2,47 +2,23 @@ package com.mwaysolution.sapMock.rest;
 
 
 import com.mwaysolution.sapMock.model.User;
-import com.mwaysolution.sapMock.model.UserRegistrationStatus;
 import com.mwaysolution.sapMock.service.UserServiceImpl;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Collections;
 import java.util.List;
 
 @Controller
 public class GuiUserController {
 
-    @Value("${syncItem.register.url}")
-    private String registerUrl;
-
-    @Value("${syncItem.unregister.url}")
-    private String unregisterUrl;
-
-    @Value("${syncItem.hostname}")
-    private String hostname;
-
-    @Autowired
-    private RestTemplate restTemplate;
-
     @Autowired
     private UserServiceImpl userService;
-
-    private static final Logger logger = LogManager.getLogger(GuiUserController.class);
 
     @RequestMapping("/gui/users")
     public String viewHomePage(Model model) {
@@ -93,40 +69,15 @@ public class GuiUserController {
 
     @RequestMapping("/gui/users/register/{id}")
     public String register(@PathVariable("id") Integer id) {
-        User user = userService.getById(id);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        HttpEntity<User> entity = new HttpEntity<>(user, headers);
-        if (restTemplate.exchange(
-                hostname + registerUrl +
-                        "?username=" + user.getSapUsername() +
-                        "&email=" + user.getExchangeUsername() +
-                        "&domain=" + user.getExchangeDomain() +
-                        "&timezone=" + user.getTimeZone(),
-                HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200) {
-            logger.info("User " + user.getSapUsername().toUpperCase() + " was registered!");
-            user.setRegistrationStatus(UserRegistrationStatus.REGISTERED);
-            userService.save(user);
-        } else
-            logger.error("Something went wrong. User " + user.getSapUsername().toUpperCase() + " wasn't registered!");
+        userService.register(userService.getById(id));
+
         return "redirect:/gui/users";
     }
 
     @RequestMapping("/gui/users/unregister/{id}")
     public String unregister(@PathVariable("id") Integer id) {
-        User user = userService.getById(id);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        HttpEntity<User> entity = new HttpEntity<>(user, headers);
-        if (restTemplate.exchange(
-                hostname + unregisterUrl +
-                        "?username=" + user.getSapUsername(),
-                HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200) {
-            logger.info("User " + user.getSapUsername().toUpperCase() + " was unregistered!");
-            user.setRegistrationStatus(UserRegistrationStatus.UNREGISTERED);
-            userService.save(user);
-        } else
-            logger.error("Something went wrong. User " + user.getSapUsername().toUpperCase() + " wasn't unregistered!");
+        userService.unregister(userService.getById(id));
+
         return "redirect:/gui/users";
     }
 }

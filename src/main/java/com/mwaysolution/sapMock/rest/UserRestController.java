@@ -4,6 +4,8 @@ package com.mwaysolution.sapMock.rest;
 import com.mwaysolution.sapMock.model.User;
 import com.mwaysolution.sapMock.model.UserRegistrationStatus;
 import com.mwaysolution.sapMock.service.UserServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -31,6 +33,8 @@ public class UserRestController {
 
     @Autowired
     private UserServiceImpl userService;
+
+    private static final Logger logger = LogManager.getLogger(UserRestController.class);
 
     @GetMapping
     public List<User> get() {
@@ -70,10 +74,13 @@ public class UserRestController {
                         "&domain=" + user.getExchangeDomain() +
                         "&timezone=" + user.getTimeZone(),
                 HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200) {
+            logger.info("User " + user.getSapUsername().toUpperCase() + " was registered!");
             user.setRegistrationStatus(UserRegistrationStatus.REGISTERED);
             return userService.save(user);
+        } else {
+            logger.error("Something went wrong. User " + user.getSapUsername().toUpperCase() + " wasn't registered!");
+            return user;
         }
-        return user;
     }
 
     @PutMapping("{id}/unregister")
@@ -86,9 +93,12 @@ public class UserRestController {
                 hostname + unregisterUrl +
                         "?username=" + user.getSapUsername(),
                 HttpMethod.GET, entity, String.class).getStatusCodeValue() == 200) {
+            logger.info("User " + user.getSapUsername().toUpperCase() + " was unregistered!");
             user.setRegistrationStatus(UserRegistrationStatus.UNREGISTERED);
             return userService.save(user);
+        } else {
+            logger.error("Something went wrong. User " + user.getSapUsername().toUpperCase() + " wasn't unregistered!");
+            return user;
         }
-        return user;
     }
 }

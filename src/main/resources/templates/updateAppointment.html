@@ -7,11 +7,11 @@
         </tr>
         <tr>
             <td>timeZone</td>
-            <td><input type="text" th:field="*{timeZone}"></td>
+            <td><input type="text" th:field="*{timeZone}" pattern="[+-][0-9]{2}:[0-9]{2}\b"></td>
         </tr>
         <tr>
             <td>location</td>
-            <td><input type="text" th:field="*{location}"></td>
+            <td><input type="text" th:field="*{location}" pattern="[A-Za-z]+"></td>
         </tr>
         <tr>
             <td>reminder</td>
@@ -24,7 +24,8 @@
                     <option th:value="${T(com.mwaysolution.sapMock.model.Sensitivity).NORMAL}">NORMAL</option>
                     <option th:value="${T(com.mwaysolution.sapMock.model.Sensitivity).PERSONAL}">PERSONAL</option>
                     <option th:value="${T(com.mwaysolution.sapMock.model.Sensitivity).PRIVATE}">PRIVATE</option>
-                    <option th:value="${T(com.mwaysolution.sapMock.model.Sensitivity).CONFIDENTIAL}">CONFIDENTIAL</option>
+                    <option th:value="${T(com.mwaysolution.sapMock.model.Sensitivity).CONFIDENTIAL}">CONFIDENTIAL
+                    </option>
                 </select>
             </td>
         </tr>
@@ -36,7 +37,8 @@
                     <option th:value="${T(com.mwaysolution.sapMock.model.ShowAs).TENTATIVE}">TENTATIVE</option>
                     <option th:value="${T(com.mwaysolution.sapMock.model.ShowAs).FREE}">FREE</option>
                     <option th:value="${T(com.mwaysolution.sapMock.model.ShowAs).OUT_OF_OFFICE}">OUT_OF_OFFICE</option>
-                    <option th:value="${T(com.mwaysolution.sapMock.model.ShowAs).WORKING_ELSEWHERE}">WORKING_ELSEWHERE</option>
+                    <option th:value="${T(com.mwaysolution.sapMock.model.ShowAs).WORKING_ELSEWHERE}">WORKING_ELSEWHERE
+                    </option>
                 </select>
             </td>
         </tr>
@@ -44,24 +46,26 @@
             <td>dominant</td>
             <td><input type="checkbox" th:field="*{dominant}"></td>
         </tr>
-<!--        <tr>-->
-<!--            <td>dateTimeFrom</td>-->
-<!--            <td><input type="text" th:field="*{dateTimeFrom}"></td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <td>dateTimeTo</td>-->
-<!--            <td><input type="text" th:field="*{dateTimeTo}"></td>-->
-<!--        </tr>-->
+        <tr>
+            <td>dateTimeFrom</td>
+            <td><input type="datetime-local" th:name="dateTimeFROM" required></td>
+        </tr>
+        <tr>
+            <td>dateTimeTo</td>
+            <td><input type="datetime-local" th:name="dateTimeTO" required></td>
+        </tr>
         <tr>
             <td>title</td>
-            <td><input type="text" th:field="*{title}"></td>
+            <td><input type="text" th:field="*{title}" required></td>
         </tr>
         <tr>
             <td>description</td>
-            <td><input type="text" th:field="*{description}"></td>
+            <td><input type="text" th:field="*{description}" required></td>
         </tr>
         <tr>
-            <td><button type="submit">Save</button></td>
+            <td>
+                <button type="submit">Save</button>
+            </td>
         </tr>
     </table>
 </form>

@@ -25,8 +25,7 @@
                 <th>Edit</th>
                 <th>Delete</th>
                 <th>Create Appointment</th>
-                <th>Register</th>
-                <th>Unregister</th>
+                <th>Registration</th>
             </tr>
             </thead>
             <tbody>
@@ -44,8 +43,14 @@
                 <td><a th:href="@{/gui/users/edit/{id}(id=${user.id})}">Edit</a></td>
                 <td><a th:href="@{/gui/users/delete/{id}(id=${user.id})}">Delete</a></td>
                 <td><a th:href="@{/gui/appointments/create/{id}(id=${user.id})}">Create Appointment</a></td>
-                <td><a th:href="@{/gui/users/register/{id}(id=${user.id})}">Register</a></td>
-                <td><a th:href="@{/gui/users/unregister/{id}(id=${user.id})}">Unregister</a></td>
+                <td>
+                    <span th:if="${user.registrationStatus == T(com.mwaysolution.sapMock.model.UserRegistrationStatus).REGISTERED}">
+                        <a th:href="@{/gui/users/unregister/{id}(id=${user.id})}">Unregister</a>
+                    </span>
+                    <span th:unless="${user.registrationStatus == T(com.mwaysolution.sapMock.model.UserRegistrationStatus).REGISTERED}">
+                        <a th:href="@{/gui/users/register/{id}(id=${user.id})}">Register</a>
+                    </span>
+                </td>
             </tr>
             </tbody>
         </table>

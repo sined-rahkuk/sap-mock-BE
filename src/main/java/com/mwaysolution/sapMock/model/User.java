@@ -21,6 +21,23 @@ public class User {
     private String exchangeDomain;
     @Column(name = "TIMEZONE", nullable = false, length = 128)
     private String timeZone;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", sapUsername='" + sapUsername + '\'' +
+                ", exchangeUsername='" + exchangeUsername + '\'' +
+                ", exchangeDomain='" + exchangeDomain + '\'' +
+                ", timeZone='" + timeZone + '\'' +
+                ", creationDate=" + creationDate +
+                ", modificationDate=" + modificationDate +
+                ", registrationStatus=" + registrationStatus +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
+
     @Column(name = "CREATION_DATE", nullable = false)
     private ZonedDateTime creationDate;
     @Column(name = "MODIFICATION_DATE", nullable = false)

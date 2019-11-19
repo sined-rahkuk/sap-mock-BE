@@ -11,7 +11,6 @@ import java.util.List;
 @RequestMapping("appointments")
 public class AppointmentRestController {
 
-
     @Autowired
     private AppointmentServiceImpl appointmentService;
 
@@ -27,19 +26,22 @@ public class AppointmentRestController {
 
     @PostMapping
     public Appointment create(@RequestBody Appointment appointment) {
-        return appointmentService.save(appointment);
+        Appointment appointmentSaved = appointmentService.save(appointment);
+        appointmentService.sendNotification(appointmentSaved, "CREATE");
+        return appointmentSaved;
     }
 
     @DeleteMapping("{id}")
     public void deleteById(@PathVariable("id") String id) {
+        appointmentService.sendNotification(appointmentService.getById(id), "DELETE");
         appointmentService.deleteById(id);
     }
 
     @PutMapping("{id}")
     public Appointment update(@PathVariable("id") String appointmentID, @RequestBody Appointment appointment) {
         appointment.setId(appointmentID);
+        appointmentService.sendNotification(appointment, "UPDATE");
         return appointmentService.save(appointment);
     }
-
 
 }

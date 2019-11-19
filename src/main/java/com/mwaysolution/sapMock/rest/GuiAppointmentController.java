@@ -8,12 +8,10 @@ import com.mwaysolution.sapMock.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Controller
@@ -46,15 +44,21 @@ public class GuiAppointmentController {
     }
 
     @RequestMapping(value = "/gui/appointments/save", method = RequestMethod.POST)
-    public String saveAppointment(@ModelAttribute("appointment") Appointment appointment) {
+    public String saveAppointment(@ModelAttribute("appointment") Appointment appointment,
+                                  @RequestParam("dateTimeFROM") String dateTimeFROM,
+                                  @RequestParam("dateTimeTO") String dateTimeTO) {
         appointment.setUser(user);
-        appointmentService.save(appointment);
+        appointment.setDateTimeFrom(ZonedDateTime.parse(dateTimeFROM + appointment.getTimeZone()));
+        appointment.setDateTimeTo(ZonedDateTime.parse(dateTimeTO + appointment.getTimeZone()));
+        Appointment appointmentSaved = appointmentService.save(appointment);
+        appointmentService.sendNotification(appointmentSaved, "CREATE");
 
         return "redirect:/gui/appointments";
     }
 
     @RequestMapping("/gui/appointments/delete/{id}")
     public String deleteAppointment(@PathVariable("id") String id) {
+        appointmentService.sendNotification(appointmentService.getById(id), "DELETE");
         appointmentService.deleteById(id);
 
         return "redirect:/gui/appointments";
@@ -71,9 +75,15 @@ public class GuiAppointmentController {
     }
 
     @RequestMapping(value = "/gui/appointments/update", method = RequestMethod.POST)
-    public String updateAppointment(@ModelAttribute("appointment") Appointment appointment) {
+    public String updateAppointment(@ModelAttribute("appointment") Appointment appointment,
+                                    @RequestParam("dateTimeFROM") String dateTimeFROM,
+                                    @RequestParam("dateTimeTO") String dateTimeTO) {
+        appointment.setDateTimeFrom(ZonedDateTime.parse(dateTimeFROM + appointment.getTimeZone()));
+        appointment.setDateTimeTo(ZonedDateTime.parse(dateTimeTO + appointment.getTimeZone()));
         appointmentService.save(appointment);
+        appointmentService.sendNotification(appointment, "UPDATE");
 
         return "redirect:/gui/appointments";
     }
+
 }

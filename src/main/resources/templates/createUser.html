@@ -3,27 +3,27 @@
     <table>
         <tr>
             <td>sapUsername</td>
-            <td><input type="text" th:field="*{sapUsername}"></td>
+            <td><input type="text" th:field="*{sapUsername}" required></td>
         </tr>
         <tr>
             <td>exchangeUsername</td>
-            <td><input type="text" th:field="*{exchangeUsername}"></td>
+            <td><input type="text" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" placeholder="example.mail@domain.com" th:field="*{exchangeUsername}" required></td>
         </tr>
         <tr>
             <td>exchangeDomain</td>
-            <td><input type="text" th:field="*{exchangeDomain}"></td>
+            <td><input type="text" pattern="^(?!:\/\/)([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]{2,11}?$" placeholder="domain.com" th:field="*{exchangeDomain}" required></td>
         </tr>
         <tr>
             <td>timeZone</td>
-            <td><input type="text" th:field="*{timeZone}"></td>
+            <td><input type="text" pattern="[+-][0-9]{2}:[0-9]{2}\b" placeholder="+02:00" th:field="*{timeZone}" required></td>
         </tr>
         <tr>
             <td>firstName</td>
-            <td><input type="text" th:field="*{firstName}"></td>
+            <td><input type="text" pattern="[A-Za-z]+" placeholder="Janko" th:field="*{firstName}" required></td>
         </tr>
         <tr>
             <td>lastName</td>
-            <td><input type="text" th:field="*{lastName}"></td>
+            <td><input type="text" pattern="[A-Za-z]+" placeholder="Hrasko" th:field="*{lastName}" required></td>
         </tr>
         <tr>
             <td><input type="submit" value="Save"></td>

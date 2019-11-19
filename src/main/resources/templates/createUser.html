@@ -1,4 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org">
+<h1 style="text-align:center">CREATE USER</h1>
 <form action="#" th:action="@{/gui/users/save}" th:object="${user}" method="post">
     <table>
         <tr>
@@ -30,4 +31,5 @@
         </tr>
     </table>
 </form>
+<p><a href="/gui/users">Users</a></p>
 </html>

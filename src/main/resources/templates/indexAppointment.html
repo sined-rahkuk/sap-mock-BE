@@ -6,6 +6,7 @@
     <link href="css" rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
 </head>
 <body>
+<h1 style="text-align:center">APPOINTMENTS</h1>
 <div th:switch="${listAppointments}">
     <h2 th:case="null">No appointments yet!</h2>
     <div th:case="*">

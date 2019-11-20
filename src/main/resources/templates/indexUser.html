@@ -6,6 +6,7 @@
     <link href="css" rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
 </head>
 <body>
+<h1 style="text-align:center">USERS</h1>
 <div th:switch="${listUsers}">
     <h2 th:case="null">No users yet!</h2>
     <div th:case="*">

@@ -1,5 +1,7 @@
 package com.mwaysolution.sapMock;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(initializers = ConfigFileApplicationContextInitializer.class)
@@ -25,6 +25,5 @@ public class DemoApplicationTests {
     public void shouldOverrideDefaultPropWithTestProp() {
     	assertThat(env.getProperty("spring.datasource.driver-class-name")).isEqualTo("org.h2.Driver");
     	assertThat(env.getProperty("spring.jpa.properties.hibernate.dialect")).isEqualTo("org.hibernate.dialect.H2Dialect");
-    	
     }
 }

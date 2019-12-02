@@ -77,7 +77,7 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    public void testSaveValidAppointment() {
+    public void testSaveAppointment() {
         appointmentServiceImpl.save(appointment);
 
         assertThat(appointment.getId()).isNotNull();
@@ -104,11 +104,13 @@ public class AppointmentServiceTest {
         appointment.setShowAs(ShowAs.BUSY);
         appointment.setDescription("DescriptionDescription");
         appointment.setModificationDate(timeModificationDate);
+        appointment.setTitle("");
+        appointment.setLocation("Bratislava");
         appointment = appointmentServiceImpl.save(appointment);
 
         assertThat(appointment.getId()).isNotNull();
         assertThat(appointment.getTimeZone()).isEqualTo("+04:00");
-        assertThat(appointment.getLocation()).isEqualTo(APPOINTMENT_LOCATION);
+        assertThat(appointment.getLocation()).isEqualTo("Bratislava");
         assertThat(appointment.getDateTimeFrom()).isNotNull();
         assertThat(appointment.getDateTimeTo()).isNotNull();
         assertThat(appointment.getSyncStatus()).isEqualTo(APPOINTMENT_SYNC_STATUS);
@@ -125,213 +127,11 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    public void testUpdateAppointmentTimeZone(){
+    public void testDeleteAppointment(){
         appointment = appointmentServiceImpl.save(appointment);
-        appointment.setTimeZone("+06:00");
-        appointmentServiceImpl.save(appointment);
+        appointmentServiceImpl.deleteById(appointment.getId());
 
-        assertThat(appointment.getId()).isNotNull();
-        assertThat(appointment.getTimeZone()).isEqualTo("+06:00");
-        assertThat(appointment.getLocation()).isEqualTo(APPOINTMENT_LOCATION);
-        assertThat(appointment.getDateTimeFrom()).isNotNull();
-        assertThat(appointment.getDateTimeTo()).isNotNull();
-        assertThat(appointment.getSyncStatus()).isEqualTo(APPOINTMENT_SYNC_STATUS);
-        assertThat(appointment.getCreationDate()).isNotNull();
-        assertThat(appointment.getModificationDate()).isNotNull();
-        assertThat(appointment.getReminder()).isEqualTo(APPOINTMENT_REMINDER);
-        assertThat(appointment.getTitle()).isEqualTo(APPOINTMENT_TITLE);
-        assertThat(appointment.getDescription()).isEqualTo(APPOINTMENT_DESCRIPTION);
-        assertThat(appointment.isDominant()).isEqualTo(APPOINTMENT_DOMINANT);
-        assertThat(appointment.getSensitivity()).isEqualTo(APPOINTMENT_SENSITIVITY);
-        assertThat(appointment.getShowAs()).isEqualTo(APPOINTMENT_SHOW_AS);
-        assertThat(appointment.getUser().getId()).isEqualTo(appointment.getUser().getId());
-    }
-
-    @Test
-    public void testUpdateAppointmentDateFrom(){
-        appointment = appointmentServiceImpl.save(appointment);
-        appointment.setDateTimeFrom(time);
-        appointment = appointmentServiceImpl.save(appointment);
-
-        assertThat(appointment.getId()).isNotNull();
-        assertThat(appointment.getTimeZone()).isEqualTo(APPOINTMENT_TIME_ZONE);
-        assertThat(appointment.getLocation()).isEqualTo(APPOINTMENT_LOCATION);
-        assertThat(appointment.getDateTimeFrom()).isEqualTo(time);
-        assertThat(appointment.getDateTimeTo()).isNotNull();
-        assertThat(appointment.getSyncStatus()).isEqualTo(APPOINTMENT_SYNC_STATUS);
-        assertThat(appointment.getCreationDate()).isNotNull();
-        assertThat(appointment.getModificationDate()).isNotNull();
-        assertThat(appointment.getReminder()).isEqualTo(APPOINTMENT_REMINDER);
-        assertThat(appointment.getTitle()).isEqualTo(APPOINTMENT_TITLE);
-        assertThat(appointment.getDescription()).isEqualTo(APPOINTMENT_DESCRIPTION);
-        assertThat(appointment.isDominant()).isEqualTo(APPOINTMENT_DOMINANT);
-        assertThat(appointment.getSensitivity()).isEqualTo(APPOINTMENT_SENSITIVITY);
-        assertThat(appointment.getShowAs()).isEqualTo(APPOINTMENT_SHOW_AS);
-        assertThat(appointment.getUser().getId()).isEqualTo(appointment.getUser().getId());
-    }
-
-    @Test
-    public void testUpdateAppointmentDateTo(){
-
-        appointment = appointmentServiceImpl.save(appointment);
-        appointment.setDateTimeTo(time);
-        appointment = appointmentServiceImpl.save(appointment);
-
-        assertThat(appointment.getId()).isNotNull();
-        assertThat(appointment.getTimeZone()).isEqualTo(APPOINTMENT_TIME_ZONE);
-        assertThat(appointment.getLocation()).isEqualTo(APPOINTMENT_LOCATION);
-        assertThat(appointment.getDateTimeFrom()).isNotNull();
-        assertThat(appointment.getDateTimeTo()).isEqualTo(time);
-        assertThat(appointment.getSyncStatus()).isEqualTo(APPOINTMENT_SYNC_STATUS);
-        assertThat(appointment.getCreationDate()).isNotNull();
-        assertThat(appointment.getModificationDate()).isNotNull();
-        assertThat(appointment.getReminder()).isEqualTo(APPOINTMENT_REMINDER);
-        assertThat(appointment.getTitle()).isEqualTo(APPOINTMENT_TITLE);
-        assertThat(appointment.getDescription()).isEqualTo(APPOINTMENT_DESCRIPTION);
-        assertThat(appointment.isDominant()).isEqualTo(APPOINTMENT_DOMINANT);
-        assertThat(appointment.getSensitivity()).isEqualTo(APPOINTMENT_SENSITIVITY);
-        assertThat(appointment.getShowAs()).isEqualTo(APPOINTMENT_SHOW_AS);
-        assertThat(appointment.getUser().getId()).isEqualTo(appointment.getUser().getId());
-    }
-
-    @Test
-    public void testUpdateAppointmentReminder(){
-        appointment = appointmentServiceImpl.save(appointment);
-        appointment.setReminder(15);
-        appointmentServiceImpl.save(appointment);
-
-        assertThat(appointment.getId()).isNotNull();
-        assertThat(appointment.getTimeZone()).isEqualTo(APPOINTMENT_TIME_ZONE);
-        assertThat(appointment.getLocation()).isEqualTo(APPOINTMENT_LOCATION);
-        assertThat(appointment.getDateTimeFrom()).isNotNull();
-        assertThat(appointment.getDateTimeTo()).isNotNull();
-        assertThat(appointment.getSyncStatus()).isEqualTo(APPOINTMENT_SYNC_STATUS);
-        assertThat(appointment.getCreationDate()).isNotNull();
-        assertThat(appointment.getModificationDate()).isNotNull();
-        assertThat(appointment.getReminder()).isEqualTo(15);
-        assertThat(appointment.getTitle()).isEqualTo(APPOINTMENT_TITLE);
-        assertThat(appointment.getDescription()).isEqualTo(APPOINTMENT_DESCRIPTION);
-        assertThat(appointment.isDominant()).isEqualTo(APPOINTMENT_DOMINANT);
-        assertThat(appointment.getSensitivity()).isEqualTo(APPOINTMENT_SENSITIVITY);
-        assertThat(appointment.getShowAs()).isEqualTo(APPOINTMENT_SHOW_AS);
-        assertThat(appointment.getUser().getId()).isEqualTo(appointment.getUser().getId());
-    }
-
-    @Test
-    public void testUpdateAppointmentTitle(){
-
-        appointment = appointmentServiceImpl.save(appointment);
-        appointment.setTitle("TitleTitle");
-        appointmentServiceImpl.save(appointment);
-
-        assertThat(appointment.getId()).isNotNull();
-        assertThat(appointment.getTimeZone()).isEqualTo(APPOINTMENT_TIME_ZONE);
-        assertThat(appointment.getLocation()).isEqualTo(APPOINTMENT_LOCATION);
-        assertThat(appointment.getDateTimeFrom()).isNotNull();
-        assertThat(appointment.getDateTimeTo()).isNotNull();
-        assertThat(appointment.getSyncStatus()).isEqualTo(APPOINTMENT_SYNC_STATUS);
-        assertThat(appointment.getCreationDate()).isNotNull();
-        assertThat(appointment.getModificationDate()).isNotNull();
-        assertThat(appointment.getReminder()).isEqualTo(APPOINTMENT_REMINDER);
-        assertThat(appointment.getTitle()).isEqualTo("TitleTitle");
-        assertThat(appointment.getDescription()).isEqualTo(APPOINTMENT_DESCRIPTION);
-        assertThat(appointment.isDominant()).isEqualTo(APPOINTMENT_DOMINANT);
-        assertThat(appointment.getSensitivity()).isEqualTo(APPOINTMENT_SENSITIVITY);
-        assertThat(appointment.getShowAs()).isEqualTo(APPOINTMENT_SHOW_AS);
-        assertThat(appointment.getUser().getId()).isEqualTo(appointment.getUser().getId());
-    }
-
-    @Test
-    public void testUpdateAppointmentDescription(){
-
-        appointment = appointmentServiceImpl.save(appointment);
-        appointment.setDescription("DescriptionDescription");
-        appointmentServiceImpl.save(appointment);
-
-        assertThat(appointment.getId()).isNotNull();
-        assertThat(appointment.getTimeZone()).isEqualTo(APPOINTMENT_TIME_ZONE);
-        assertThat(appointment.getLocation()).isEqualTo(APPOINTMENT_LOCATION);
-        assertThat(appointment.getDateTimeFrom()).isNotNull();
-        assertThat(appointment.getDateTimeTo()).isNotNull();
-        assertThat(appointment.getSyncStatus()).isEqualTo(APPOINTMENT_SYNC_STATUS);
-        assertThat(appointment.getCreationDate()).isNotNull();
-        assertThat(appointment.getModificationDate()).isNotNull();
-        assertThat(appointment.getReminder()).isEqualTo(APPOINTMENT_REMINDER);
-        assertThat(appointment.getTitle()).isEqualTo(APPOINTMENT_TITLE);
-        assertThat(appointment.getDescription()).isEqualTo("DescriptionDescription");
-        assertThat(appointment.isDominant()).isEqualTo(APPOINTMENT_DOMINANT);
-        assertThat(appointment.getSensitivity()).isEqualTo(APPOINTMENT_SENSITIVITY);
-        assertThat(appointment.getShowAs()).isEqualTo(APPOINTMENT_SHOW_AS);
-        assertThat(appointment.getUser().getId()).isEqualTo(appointment.getUser().getId());
-    }
-
-    @Test
-    public void testUpdateAppointmentSensitivity(){
-        appointment = appointmentServiceImpl.save(appointment);
-        appointment.setSensitivity(Sensitivity.PRIVATE);
-        appointmentServiceImpl.save(appointment);
-
-        assertThat(appointment.getId()).isNotNull();
-        assertThat(appointment.getTimeZone()).isEqualTo(APPOINTMENT_TIME_ZONE);
-        assertThat(appointment.getLocation()).isEqualTo(APPOINTMENT_LOCATION);
-        assertThat(appointment.getDateTimeFrom()).isNotNull();
-        assertThat(appointment.getDateTimeTo()).isNotNull();
-        assertThat(appointment.getSyncStatus()).isEqualTo(APPOINTMENT_SYNC_STATUS);
-        assertThat(appointment.getCreationDate()).isNotNull();
-        assertThat(appointment.getModificationDate()).isNotNull();
-        assertThat(appointment.getReminder()).isEqualTo(APPOINTMENT_REMINDER);
-        assertThat(appointment.getTitle()).isEqualTo(APPOINTMENT_TITLE);
-        assertThat(appointment.getDescription()).isEqualTo(APPOINTMENT_DESCRIPTION);
-        assertThat(appointment.isDominant()).isEqualTo(APPOINTMENT_DOMINANT);
-        assertThat(appointment.getSensitivity()).isEqualTo(Sensitivity.PRIVATE);
-        assertThat(appointment.getShowAs()).isEqualTo(APPOINTMENT_SHOW_AS);
-        assertThat(appointment.getUser().getId()).isEqualTo(appointment.getUser().getId());
-    }
-
-    @Test
-    public void testUpdateAppointmentShowAs(){
-        appointment = appointmentServiceImpl.save(appointment);
-        appointment.setShowAs(ShowAs.WORKING_ELSEWHERE);
-        appointmentServiceImpl.save(appointment);
-
-        assertThat(appointment.getId()).isNotNull();
-        assertThat(appointment.getTimeZone()).isEqualTo(APPOINTMENT_TIME_ZONE);
-        assertThat(appointment.getLocation()).isEqualTo(APPOINTMENT_LOCATION);
-        assertThat(appointment.getDateTimeFrom()).isNotNull();
-        assertThat(appointment.getDateTimeTo()).isNotNull();
-        assertThat(appointment.getSyncStatus()).isEqualTo(APPOINTMENT_SYNC_STATUS);
-        assertThat(appointment.getCreationDate()).isNotNull();
-        assertThat(appointment.getModificationDate()).isNotNull();
-        assertThat(appointment.getReminder()).isEqualTo(APPOINTMENT_REMINDER);
-        assertThat(appointment.getTitle()).isEqualTo(APPOINTMENT_TITLE);
-        assertThat(appointment.getDescription()).isEqualTo(APPOINTMENT_DESCRIPTION);
-        assertThat(appointment.isDominant()).isEqualTo(APPOINTMENT_DOMINANT);
-        assertThat(appointment.getSensitivity()).isEqualTo(APPOINTMENT_SENSITIVITY);
-        assertThat(appointment.getShowAs()).isEqualTo(ShowAs.WORKING_ELSEWHERE);
-        assertThat(appointment.getUser().getId()).isEqualTo(appointment.getUser().getId());
-    }
-
-    @Test
-    public void testUpdateAppointmentLocation(){
-        appointment = appointmentServiceImpl.save(appointment);
-        appointment.setLocation("Bratislava");
-        appointmentServiceImpl.save(appointment);
-
-        assertThat(appointment.getId()).isNotNull();
-        assertThat(appointment.getTimeZone()).isEqualTo(APPOINTMENT_TIME_ZONE);
-        assertThat(appointment.getLocation()).isEqualTo("Bratislava");
-        assertThat(appointment.getDateTimeFrom()).isNotNull();
-        assertThat(appointment.getDateTimeTo()).isNotNull();
-        assertThat(appointment.getSyncStatus()).isEqualTo(APPOINTMENT_SYNC_STATUS);
-        assertThat(appointment.getCreationDate()).isNotNull();
-        assertThat(appointment.getModificationDate()).isNotNull();
-        assertThat(appointment.getReminder()).isEqualTo(APPOINTMENT_REMINDER);
-        assertThat(appointment.getTitle()).isEqualTo(APPOINTMENT_TITLE);
-        assertThat(appointment.getDescription()).isEqualTo(APPOINTMENT_DESCRIPTION);
-        assertThat(appointment.isDominant()).isEqualTo(APPOINTMENT_DOMINANT);
-        assertThat(appointment.getSensitivity()).isEqualTo(APPOINTMENT_SENSITIVITY);
-        assertThat(appointment.getShowAs()).isEqualTo(APPOINTMENT_SHOW_AS);
-        assertThat(appointment.getUser().getId()).isEqualTo(appointment.getUser().getId());
+        assertThat(appointmentServiceImpl.getById(appointment.getId())).isNull();
     }
 
     private Appointment createAppointment(String timeZone, String location, ZonedDateTime dateTimeFrom, ZonedDateTime dateTimeTo, AppointmentSyncStatus syncStatus,

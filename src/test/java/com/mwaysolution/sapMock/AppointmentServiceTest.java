@@ -68,6 +68,7 @@ public class AppointmentServiceTest {
         appointment = createAppointment(APPOINTMENT_TIME_ZONE, APPOINTMENT_LOCATION, APPOINTMENT_DATE_TIME_FROM, APPOINTMENT_DATE_TIME_TO, APPOINTMENT_SYNC_STATUS,
                 APPOINTMENT_CREATION_DATE, APPOINTMENT_MODIFICATION_DATE, APPOINTMENT_REMINDER, APPOINTMENT_TITLE, APPOINTMENT_DESCRIPTION,
                 APPOINTMENT_DOMINANT, APPOINTMENT_SENSITIVITY, APPOINTMENT_SHOW_AS, user);
+        appointmentServiceImpl.save(appointment);
     }
 
     @After
@@ -78,8 +79,6 @@ public class AppointmentServiceTest {
 
     @Test
     public void testSaveAppointment() {
-        appointmentServiceImpl.save(appointment);
-
         assertThat(appointment.getId()).isNotNull();
         assertThat(appointment.getTimeZone()).isEqualTo(APPOINTMENT_TIME_ZONE);
         assertThat(appointment.getLocation()).isEqualTo(APPOINTMENT_LOCATION);
@@ -99,7 +98,6 @@ public class AppointmentServiceTest {
 
     @Test
     public void testUpdateAppointment() {
-        appointment = appointmentServiceImpl.save(appointment);
         appointment.setTimeZone("+04:00");
         appointment.setShowAs(ShowAs.BUSY);
         appointment.setDescription("DescriptionDescription");
@@ -128,9 +126,7 @@ public class AppointmentServiceTest {
 
     @Test
     public void testDeleteAppointment(){
-        appointment = appointmentServiceImpl.save(appointment);
         appointmentServiceImpl.deleteById(appointment.getId());
-
         assertThat(appointmentServiceImpl.getById(appointment.getId())).isNull();
     }
 

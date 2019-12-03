@@ -58,9 +58,8 @@ public class AppointmentServiceTest {
     AppointmentServiceImpl appointmentServiceImpl;
 
 
-
     @Before
-    public void setUp(){
+    public void setUp() {
         user = createUser(SAP_USERNAME, EXCHANGE_USERNAME, EXCHANGE_DOMAIN, TIME_ZONE,
                 REGISTRATION_STATUS, FIRST_NAME, LAST_NAME);
         user = userService.save(user);
@@ -68,11 +67,11 @@ public class AppointmentServiceTest {
         appointment = createAppointment(APPOINTMENT_TIME_ZONE, APPOINTMENT_LOCATION, APPOINTMENT_DATE_TIME_FROM, APPOINTMENT_DATE_TIME_TO, APPOINTMENT_SYNC_STATUS,
                 APPOINTMENT_CREATION_DATE, APPOINTMENT_MODIFICATION_DATE, APPOINTMENT_REMINDER, APPOINTMENT_TITLE, APPOINTMENT_DESCRIPTION,
                 APPOINTMENT_DOMINANT, APPOINTMENT_SENSITIVITY, APPOINTMENT_SHOW_AS, user);
-        appointmentServiceImpl.save(appointment);
+        appointment = appointmentServiceImpl.save(appointment);
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         appointmentServiceImpl.get().forEach(appointment -> appointmentServiceImpl.deleteById(appointment.getId()));
         userService.get().forEach(user -> userService.deleteById(user.getId()));
     }
@@ -125,14 +124,14 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    public void testDeleteAppointment(){
+    public void testDeleteAppointment() {
         appointmentServiceImpl.deleteById(appointment.getId());
         assertThat(appointmentServiceImpl.getById(appointment.getId())).isNull();
     }
 
     private Appointment createAppointment(String timeZone, String location, ZonedDateTime dateTimeFrom, ZonedDateTime dateTimeTo, AppointmentSyncStatus syncStatus,
-                                   ZonedDateTime creationDate, ZonedDateTime modificationDate, int reminder, String title, String description, boolean dominant,
-                                   Sensitivity sensitivity, ShowAs showAs, User user) {
+                                          ZonedDateTime creationDate, ZonedDateTime modificationDate, int reminder, String title, String description, boolean dominant,
+                                          Sensitivity sensitivity, ShowAs showAs, User user) {
 
         Appointment appointment = new Appointment();
 
